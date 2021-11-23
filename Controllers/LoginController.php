@@ -26,6 +26,7 @@ class LoginController
         $admin = $this->_adminmanager->loginAdmin();
 
         $this->_view = new View('login');
+        echo array('administrator' => $admin);
         $this->_view->generate(array('administrator' => $admin));
     }
 

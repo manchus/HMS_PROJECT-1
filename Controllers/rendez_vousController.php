@@ -18,7 +18,8 @@
         private function add()
         {
             $this->_manager = new AppointmentManager;
-            $apps = $this->_manager->takeAppointment();
+            // take appoinment not implemented correctly GH
+            //    $apps = $this->_manager->takeAppointment();
             $apps = $this->_manager->getAppointment();
             
             $this->_view = new View('rendez_vous');

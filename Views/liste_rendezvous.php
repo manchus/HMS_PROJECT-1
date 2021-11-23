@@ -15,6 +15,8 @@ try{
 ?>
   <div class="col-10 table-responsive">
     <br>
+    <a href="/HMS_PROJECT/ajout_rendezvous" class="btn btn-info float-right"><i class="fas fa-plus-square"></i></a>
+    <br>
   <table class="table table-bordered">
   <thead>
     <tr class="table-primary">
@@ -44,7 +46,9 @@ try{
       <td><?=$d->heure_rendezvous()?></td>
       <td>
         <a href="http://localhost/HMS_PROJECT/index.php?url=detail_rendezvous&id=<?=$d->id();?>" id="link" style="text-decoration:none;"  id="link" style="text-decoration:none;"><i class="fas fa-info-circle"></i>  </a>
-    </tr>
+        <a href="http://localhost/HMS_PROJECT/index.php?url=delete_rendezvous&id=<?=$d->id();?>" id="link" style="text-decoration:none;"  id="link" style="text-decoration:none;"><i class="fas fa-trash-alt"></i></a>
+        <a href="http://localhost/HMS_PROJECT/index.php?url=modif_rendezvous&id=<?=$d->id();?>" id="link" style="text-decoration:none;"><i class="fas fa-pen-square"></i></a></td>
+      </tr>
   </tbody>
 
 

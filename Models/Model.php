@@ -134,7 +134,7 @@ Abstract class Model
         return $var;
         $query->closeCursor();
     }
-  /*  public function addAppointment($table,$obj,$id_patient,$id_medecin,$date,$heure)
+  public function addAppointment($table,$id_patient,$id_medecin,$date,$heure,$obj)
     {
         $id_patient = 3; // <--- COOKIE
         $sql = "insert into ".$table." (id_patient,id_medecin,date_rendezvous,heure_rendezvous) values(?,?,?,?);";
@@ -151,7 +151,29 @@ Abstract class Model
         return $var;
 
         $query->closeCursor();
-    }*/
+    }
+    public function updateAppointment($table,$id_patient,$id_medecin,$date,$heure,$obj,$id)
+    {
+        $sql = "update ".$table." set id_patient=?,id_medecin=?,date_rendezvous=?,heure_rendezvous=? 
+        where id=?";
+        var_dump($sql);
+
+        $query = self::$_db->prepare($sql);
+        $query->execute([$id_patient,$id_medecin,$date,$heure, $id]);
+        
+        $data = array("id_patient" => $id_patient,"id_medecin" => $id_medecin, "date_rendezvous" => $date,
+        "heure_rendezvous" => $heure, "id" => $id);
+
+        $var = new $obj($data);
+
+        return $var;
+
+        $query->closeCursor();
+    }
+
+
+
+
     public function addDocDep($table,$obj,$id_dep,$id_doc)
     {
         $sql = "insert into ".$table." (id_dep,id_doc) values(?,?);";
