@@ -1,12 +1,12 @@
 <?php $this->_t = "Rendez-vous"; ?>
 <form method="post">
     <select name="id_medecin">
-    <?php
-        foreach($appointment as $a):
-            //var_dump($a);
-    ?>
-            <option value="<?=$a->id();?>">Dr. <?=$a->nom()?> <?=$a->prenom()?></option>
-            <?php endforeach; ?>
+        <?php
+            foreach($appointment as $a):
+                //var_dump($a);
+        ?>
+        <option value="<?=$a->id();?>">Dr. <?=$a->nom()?> <?=$a->prenom()?></option>
+        <?php endforeach; ?>
     </select>
     <input type="date" name="date"/>
     <input type="time" name="heure"/>

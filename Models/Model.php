@@ -54,10 +54,12 @@ Abstract class Model
         return $var;
         $query->closeCursor();
     }
-    public function details($table, $obj, $where, $id)
+    public function getAppointments($table, $obj,$field)
     {
         $var = [];
-        $sql = 'SELECT * FROM '.$table.' where '.$where.'='.$id.';';
+        //$sql = "SELECT ".$field." as id, COUNT(".$field.") as _qte_rv FROM ".$table." GROUP BY ".$field.";";
+        $sql = "SELECT appointment.".$field." as id, ".$table.".nom, ".$table.".prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment.".$field.") as _qte_rv 
+        FROM appointment,".$table." WHERE appointment.".$field." = ".$table.".id GROUP BY ".$field.";"; 
         $query = self::$_db->prepare($sql);
         $query->execute();
         while($data = $query->fetch(PDO::FETCH_ASSOC))
@@ -65,6 +67,16 @@ Abstract class Model
             $var[] = new $obj($data);
         }
         return $var;
+        $query->closeCursor();
+    }
+
+    public function details($table, $obj, $where, $id)
+    {
+        $sql = 'SELECT * FROM '.$table.' where '.$where.'='.$id.';';
+        $query = self::$_db->prepare($sql);
+        $query->execute();
+        while($data = $query->fetch(PDO::FETCH_ASSOC))
+          return(new $obj($data));
         $query->closeCursor();   
     }
 
@@ -134,23 +146,31 @@ Abstract class Model
         return $var;
         $query->closeCursor();
     }
+
+    
   public function addAppointment($table,$id_patient,$id_medecin,$date,$heure,$obj)
     {
-        $id_patient = 3; // <--- COOKIE
+     //   $id_patient = 3; // <--- COOKIE
         $sql = "insert into ".$table." (id_patient,id_medecin,date_rendezvous,heure_rendezvous) values(?,?,?,?);";
-
         $query = self::$_db->prepare($sql);
-        $query->execute([$id_patient,$id_medecin,$date,$heure]);
-        
+       $query->execute([$id_patient,$id_medecin,$date,$heure]);       
+       
+       $id_rendezvous = self::$_db->lastInsertId();
+       $prix_rendezvous = floatval(10);
+
+        $sql = "insert into invoice (id_rendezvous,prix_rendezvous) values(?,?);";
+        $query = self::$_db->prepare($sql);
+        $query->execute([$id_rendezvous,$prix_rendezvous]);
+        $query->closeCursor();
+
         $data = array("id_patient" => $id_patient, "id_medecin" => $id_medecin, "date_rendezvous" => $date,
             "heure_rendezvous" => $heure);
-
+      
         $var = new $obj($data);
-        
-        //var_dump($data);
         return $var;
 
-        $query->closeCursor();
+      
+
     }
     public function updateAppointment($table,$id_patient,$id_medecin,$date,$heure,$obj,$id)
     {
@@ -170,6 +190,8 @@ Abstract class Model
 
         $query->closeCursor();
     }
+
+
 
 
 

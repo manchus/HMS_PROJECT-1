@@ -22,11 +22,9 @@ class modif_rendezvousController
     {
         $this->_manager = new rendezvousManager;
         $rdv = $this->_manager->updateRendezvous();
-        $pat = $this->_manager->getPatient();
-        $med = $this->_manager->getMedecin();
 
         $this->_view = new View('modif_rendezvous');
-        $this->_view->generate(array('rendezvous' => $rdv,'patient'=>$pat,'medecin'=>$med));
+        $this->_view->generate(array('rendezvous' => $rdv));
     }
 }
 ?>

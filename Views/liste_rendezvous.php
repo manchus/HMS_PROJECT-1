@@ -1,49 +1,53 @@
 <?php
 $this->_t = "Liste des rendez-vous";
 ?>  
-
   <?php 
     include("Public/sidebar.php");
   ?>
-<?php
-try{
-    $pdo = new PDO("mysql:host=localhost;dbname=system_hopital;charset=utf8","root","");
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(PDOException $e){
-    die("ERROR: Could not connect. " . $e->getMessage());
-}
-?>
+
+<div class="col-10 table-responsive">
+  <h1><?php echo($this->_t) ?></h1>
+</div>
   <div class="col-10 table-responsive">
     <br>
+    <a href="/HMS_PROJECT/index.php?url=liste_rendezvous&user=patientaa" class="btn btn-secondary float-right"><i class="fas fa-hospital-user"></i> Patients</a>
+    <a href="/HMS_PROJECT/liste_rendezvous?user=medicin" class="btn btn-info float-right"><i class="fas fa-user-md"></i> Medicin</a>
+    <br>
+    <p class="h4">Ajouter rendez-vous
     <a href="/HMS_PROJECT/ajout_rendezvous" class="btn btn-info float-right"><i class="fas fa-plus-square"></i></a>
+    </p>
+    <br>
     <br>
   <table class="table table-bordered">
   <thead>
     <tr class="table-primary">
-      <th scope="col">Pris par</th>
-      <th scope="col">Pris avec</th>
+      <?php print_r($usr); ?>
+    <?php if(isset($_POST["user"]))
+          {
+              if($_POST["user"]=="medicin")
+                echo("<th scope='col'>Pris avec</th>");
+          }
+          else//$POST["user"]=="patient"
+            echo("<th scope='col'>Pris par</th>");
+    ?>
+      
       <th scope="col">Date du rendez-vous</th>
       <th scope="col">Heure du rendez-vous</th>
       <th></th>
     </tr>
   </thead>
 <?php
-    foreach($appointment as $d){
-      $sql1 = "SELECT nom,prenom FROM doctor WHERE id = ".$d->id_medecin().";";
-      $sql2 = "SELECT nom,prenom FROM patient WHERE id = ".$d->id_patient().";";
-      $stmt1 = $pdo->prepare($sql1);
-      $stmt2 = $pdo->prepare($sql2);
-      $stmt1->execute();
-      $stmt2->execute();
-      $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
-      $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+    foreach($doctor as $d){
+           
 ?>
   <tbody>
     <tr>
-      <td><?=$row2["nom"]?> <?=$row2["prenom"]?></td>
-      <td>Dr. <?=$row1["nom"]?> <?=$row1["prenom"]?></td>
-      <td><?=$d->date_rendezvous()?></td>
-      <td><?=$d->heure_rendezvous()?></td>
+      
+      <td>Dr. <?=$d->nom()?> <?=$d->prenom()?></td>
+      <td><?=$d->dernier_rv()?>
+    
+    </td>
+      <td><?=$d->qte_rv()?></td>
       <td>
         <a href="http://localhost/HMS_PROJECT/index.php?url=detail_rendezvous&id=<?=$d->id();?>" id="link" style="text-decoration:none;"  id="link" style="text-decoration:none;"><i class="fas fa-info-circle"></i>  </a>
         <a href="http://localhost/HMS_PROJECT/index.php?url=delete_rendezvous&id=<?=$d->id();?>" id="link" style="text-decoration:none;"  id="link" style="text-decoration:none;"><i class="fas fa-trash-alt"></i></a>

@@ -7,20 +7,7 @@ class RendezvousManager extends Model
         $this->getBdd();
         return $this->getAll('appointment','Appointment');
     }
-    public function getPatient()
-    {
-        $this->getBdd();
-        return $this->getAll('patient','Patient');
-    }
-
-    public function getMedecin()
-    {
-        $this->getBdd();
-        return $this->getAll('doctor','Doctor');
-    }
-
-
-
+    
     public function deleteRendezvous()
     {
         $this->getBdd();
@@ -37,8 +24,17 @@ class RendezvousManager extends Model
         {
             
             echo "<script>window.location.href = '/HMS_PROJECT/liste_rendezvous';</script>";
-            return $this->addAppointment('appointment',$_POST["id_patient"],$_POST["id_medecin"],
-            $_POST["date_rendezvous"],$_POST["heure_rendezvous"],'Appointment');
+            try{
+                $this->addAppointment('appointment',$_POST["id_patient"],$_POST["id_medecin"],
+                $_POST["date_rendezvous"],$_POST["heure_rendezvous"],'Appointment');
+                
+                return true;
+            }
+            catch(Exception $e){
+                echo 'Exception: ',  $e->getMessage(), "\n";
+                return false;
+            }
+
 
         }
     }

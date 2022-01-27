@@ -38,6 +38,13 @@ class PatientManager extends Model
             return $this->details('patient','Patient','id',$id);
         }
     }
+
+    public function getPatientDetailId($id)
+    {
+        $this->getBdd();
+        return $this->details('patient','Patient','id',$id);
+    }
+
     public function addpatient()
     {
         $this->getBdd();

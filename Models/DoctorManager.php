@@ -16,6 +16,13 @@ class DoctorManager extends Model
             return $this->details('doctor','Doctor','id',$id);
         }
     }
+
+    public function getDoctorDetailId($id)
+    {
+        $this->getBdd();
+        return $this->details('doctor','Doctor','id',$id);
+    }
+    
     public function updatedoctor()
     {
         $this->getBdd();
@@ -37,6 +44,7 @@ class DoctorManager extends Model
             }
         }
     }
+
     public function deletedoctor()
     {
         $this->getBdd();

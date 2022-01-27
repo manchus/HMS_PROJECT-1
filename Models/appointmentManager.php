@@ -24,4 +24,9 @@ class AppointmentManager extends Model
         if(isset($_GET["id"]))
             return $this->details("appointment","Appointment","id",$_GET["id"]);
     }
+    public function getAppointmentDetailId($id)
+    {
+        $this->getBdd();
+        return $this->details("appointment","Appointment","id",$id);
+    }
 }
