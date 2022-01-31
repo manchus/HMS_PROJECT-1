@@ -54,12 +54,30 @@ Abstract class Model
         return $var;
         $query->closeCursor();
     }
-    public function getAppointments($table, $obj,$field)
+    public function getAppointments($table, $obj,$field,$way)
     {
         $var = [];
         //$sql = "SELECT ".$field." as id, COUNT(".$field.") as _qte_rv FROM ".$table." GROUP BY ".$field.";";
-        $sql = "SELECT appointment.".$field." as id, ".$table.".nom, ".$table.".prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment.".$field.") as _qte_rv 
-        FROM appointment,".$table." WHERE appointment.".$field." = ".$table.".id GROUP BY ".$field.";"; 
+        $sql = "SELECT appointment.id, ".$table.".nom, ".$table.".prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment.".$field.") as _qte_rv 
+        FROM appointment,".$table." WHERE appointment.".$field." = ".$table.".id 
+        AND appointment.date_rendezvous ".($way==0?"<":">=")." CURRENT_DATE() GROUP BY ".$field.";"; 
+        $query = self::$_db->prepare($sql);
+        $query->execute();
+        while($data = $query->fetch(PDO::FETCH_ASSOC))
+        {
+            $var[] = new $obj($data);
+        }
+        return $var;
+        $query->closeCursor();
+    }
+
+    public function getListAppointments($table, $obj,$field,$way)
+    {
+        $var = [];
+        //$sql = "SELECT ".$field." as id, COUNT(".$field.") as _qte_rv FROM ".$table." GROUP BY ".$field.";";
+        $sql = "SELECT appointment.id, ".$table.".nom, ".$table.".prenom, appointment.date_rendezvous,  appointment.heure_rendezvous
+        FROM appointment,".$table." WHERE appointment.".$field." = ".$table.".id 
+        AND appointment.date_rendezvous ".($way==0?"<":">=")." CURRENT_DATE();"; 
         $query = self::$_db->prepare($sql);
         $query->execute();
         while($data = $query->fetch(PDO::FETCH_ASSOC))
