@@ -1,6 +1,6 @@
 <?php
 
-class InvoiceManager extends Model
+class SummaryInvoiceManager extends Model
 {
     public function getInvoice()
     {
@@ -19,10 +19,10 @@ class InvoiceManager extends Model
         return $this->getAll('doctor','Doctor');
     }
 
-    public function getInvoicePatient()
+    public function getSummaryInvoice($table,$obj,$field,$way)
     {
         $this->getBdd();
-        return $this->getInvoicePatientList();
+        return $this->getInvoiceList($table, $obj,$field,$way);
     }
 
 

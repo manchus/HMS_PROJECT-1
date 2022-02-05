@@ -7,12 +7,12 @@ class PatientManager extends Model
         $this->getBdd();
         if(isset($_POST["login"]) && !empty($_POST))
         {
-            return $this->login('patient','Patient',
-            $_POST["email"],$_POST["mdp"],"rendez_vous","patientemail");
+            return $this->login('patient','Patient',$_POST["email"],$_POST["mdp"],"liste_rendezvous","patientemail");
+    //        return $this->login('patient','Patient',$_POST["email"],$_POST["mdp"],"liste_medecin","patientemail");
         }
         if(isset($_COOKIE["patientemail"]))
         {
-            //echo "<script>document.location.href='/HMS_PROJECT/rendez_vous'</script>";  
+            echo "<script>document.location.href='/HMS_PROJECT/liste_rendezvous'</script>";  
         }
     }
     public function getPatients()

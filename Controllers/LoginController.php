@@ -15,18 +15,35 @@ class LoginController
         }
         else
         {
+            $tmp = 0;
+            $usr="";
+            if(isset($_GET["tusr"]))
+            {
+                if($_GET["tusr"]=="patient"){
+                    $this->loginPatients();
+                }
+                else if($_GET["tusr"]=="admin"){
+                    $this->loginAdmins();
+                }
+
+    
+                
+            }
+            else
+                $usr = "No me funciono mi idea para login";
             //$this->loginPatients();
-            $this->loginAdmins();
+           
         }
     }
 
     private function loginAdmins()
-    {
+    {   
+
         $this->_adminmanager = new AdminManager;
         $admin = $this->_adminmanager->loginAdmin();
 
         $this->_view = new View('login');
-        echo array('administrator' => $admin);
+        //echo array('administrator' => $admin);
         $this->_view->generate(array('administrator' => $admin));
     }
 

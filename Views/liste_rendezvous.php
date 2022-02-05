@@ -6,7 +6,8 @@ include("Public/sidebar.php");
 ?>
 
 <div class="col-10 table-responsive">
-  <h1><?php echo ($this->_t) ?></h1>
+  <h4><?php echo ($this->_usr); echo(" > "); echo ($this->_name); ?></h4>
+  <h2><?php echo ($this->_t)   ?></h2>
 </div>
 <div class="col-10 table-responsive">
   <br>

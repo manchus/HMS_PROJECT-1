@@ -1,12 +1,26 @@
 <?php
 class View
 {
+    private $_usr;
+    private $_name;
     private $_file;
     private $_t;
 
     public function __construct($action)
     {
         $this->_file = 'Views/'.$action.'.php';
+        if(isset($_COOKIE["adminemail"]))
+            $this->_usr = "Administrateur";
+        if(isset($_COOKIE["patientemail"]))
+            $this->_usr = "Patient";
+        if(isset($_COOKIE["medecinmail"]))
+            $this->_usr = "Médecins";
+        if(isset($_COOKIE["infirmieremail"]))
+            $this->_usr = "Infirmière";
+        if(isset($_COOKIE["employeeemail"]))
+            $this->_usr = "Infirmière";
+    if(isset($_COOKIE["nom"]))   
+        $this->_name = $_COOKIE["nom"]." ".$_COOKIE["prenom"];
     }
     // génère et affiche la vue
     public function generate($data)

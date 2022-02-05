@@ -32,7 +32,7 @@
 }
 </style>
 <?php
-if(empty($_COOKIE["adminemail"]) && empty($_COOKIE["adminpassword"]))
+if(empty($_COOKIE["adminemail"]) && empty($_COOKIE["adminpassword"])&& empty($_COOKIE["patientemail"]))
 {
     echo "<script>document.location.href='/HMS_PROJECT/login'</script>";  
 }
@@ -54,13 +54,18 @@ if(empty($_COOKIE["adminemail"]) && empty($_COOKIE["adminpassword"]))
   <button type="submit" name="deco" class="btn btn-danger" style="margin-left:40px; margin-top:10px;"><i class="fas fa-sign-out-alt"></i></button>
   <?php
   //echo $_COOKIE["adminemail"];
-    if(isset($_POST["deco"]) && isset($_COOKIE["adminemail"]))
+    if(isset($_POST["deco"]))
     {
-      setcookie("adminemail",$_COOKIE["adminemail"], time()-3601);
-      echo "<script>document.location.href='/HMS_PROJECT/'</script>";  
-      if(empty($_COOKIE["adminemail"]))
+      if(isset($_COOKIE["adminemail"]))
+       setcookie("adminemail",$_COOKIE["adminemail"], time()-3601);
+      if(isset($_COOKIE["patientemail"]))
+       setcookie("patientemail",$_COOKIE["patientemail"], time()-3601);
+
+      echo "<script>document.location.href='/HMS_PROJECT/'</script>"; 
+      if(empty($_COOKIE["adminemail"])&&empty($_COOKIE["patientemail"]))
       {
-        echo "<script>document.location.href='/HMS_PROJECT/'</script>";  
+        echo "<script>document.location.href='/HMS_PROJECT/'</script>"; 
+         
       }
     }
     

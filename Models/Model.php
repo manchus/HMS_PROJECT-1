@@ -31,7 +31,10 @@ Abstract class Model
         {
             $result = $query->fetchAll();
             echo "<script>document.location.href='/HMS_PROJECT/".$link."'</script>";   
-            setcookie($cookie,$result[0]["id"], time()+3600*24);                 
+            setcookie($cookie,$result[0]["id"], time()+3600*24);
+            setcookie('nom',$result[0]["nom"], time()+3600*24);
+            setcookie('prenom',$result[0]["prenom"], time()+3600*24);
+            //setcookie("logged_user",$obj, time()+3600*24);                 
             return new $obj($data);
         }
         else
@@ -57,10 +60,52 @@ Abstract class Model
     public function getAppointments($table, $obj,$field,$way)
     {
         $var = [];
-        //$sql = "SELECT ".$field." as id, COUNT(".$field.") as _qte_rv FROM ".$table." GROUP BY ".$field.";";
+        if(isset($_COOKIE["adminemail"]))
+            $sql = "SELECT appointment.id, ".$table.".nom, ".$table.".prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment.".$field.") as _qte_rv 
+            FROM appointment,".$table." WHERE appointment.".$field." = ".$table.".id 
+            AND appointment.date_rendezvous ".($way==0?"<":">=")." CURRENT_DATE() GROUP BY ".$field.";"; 
+        if(isset($_COOKIE["patientemail"]))
+        $sql = "SELECT appointment.id, ".$table.".nom, ".$table.".prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment.".$field.") as _qte_rv 
+        FROM appointment,".$table." WHERE appointment.".$field." = ".$table.".id AND ".$table.".id = ".$_COOKIE["patientemail"]."
+        AND appointment.date_rendezvous ".($way==0?"<":">=")." CURRENT_DATE() GROUP BY ".$field.";"; 
+
+        $query = self::$_db->prepare($sql);
+        $query->execute();
+        while($data = $query->fetch(PDO::FETCH_ASSOC))
+        {
+            $var[] = new $obj($data);
+        }
+        return $var;
+        $query->closeCursor();
+    }
+
+    public function getInvoiceList($table, $obj,$field,$way)
+    {
+        $var = [];
         $sql = "SELECT appointment.id, ".$table.".nom, ".$table.".prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment.".$field.") as _qte_rv 
         FROM appointment,".$table." WHERE appointment.".$field." = ".$table.".id 
         AND appointment.date_rendezvous ".($way==0?"<":">=")." CURRENT_DATE() GROUP BY ".$field.";"; 
+      /*  SELECT appointment.id, patient.nom, patient.prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment.id) as _qte_rv , SUM(invoice.prix_rendezvous) as value
+        FROM appointment,patient, invoice WHERE appointment.id_patient = patient.id AND appointment.id = invoice.id_rendezvous 
+        AND appointment.date_rendezvous < CURRENT_DATE() GROUP BY patient.id;
+
+        SELECT appointment.id, patient.nom, patient.prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment.id) as _qte_rv , SUM(invoice.prix_rendezvous) as value
+        FROM appointment,patient, invoice WHERE appointment.id_patient = patient.id AND appointment.id = invoice.id_rendezvous 
+        AND appointment.date_rendezvous < CURRENT_DATE() GROUP BY patient.id;
+
+
+SELECT appointment.id, appointment.id_patient, appointment.id_medecin, appointment.date_rendezvous, appointment.heure_rendezvous, SUM(invoice.prix_rendezvous), (SELECT COUNT(appointment.id_patient) FROM appointment WHERE appointment.id = invoice.id_rendezvous GROUP by appointment.id_patient) as citas, count(appointment.id_patient) as pagos FROM appointment, invoice WHERE appointment.id = invoice.id_rendezvous AND appointment.date_rendezvous < CURRENT_DATE() GROUP BY appointment.id;
+
+id	
+id_patient	
+id_medecin	
+date_rendezvous	
+heure_rendezvous	
+SUM(invoice.prix_rendezvous)	
+citas	
+pagos	
+
+*/
         $query = self::$_db->prepare($sql);
         $query->execute();
         while($data = $query->fetch(PDO::FETCH_ASSOC))
