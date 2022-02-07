@@ -1,40 +1,61 @@
-<style>#link:hover{
-    color:#008B8B;
+<style>
+  #link:hover {
+    color: #008B8B;
   }
+
   .sidenav {
-  height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 160px; /* Set the width of the sidebar */
-  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-  z-index: 1; /* Stay on top */
-  top: 0; /* Stay at the top */
-  left: 0;
-  background-color: #111; /* Black */
-  overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 20px;
-}
-  .sidenav a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  color: rgb(20, 20, 20);
-  display: block;
-  transition: 0.3s;
+    height: 100%;
+    /* Full-height: remove this if you want "auto" height */
+    width: 160px;
+    /* Set the width of the sidebar */
+    position: fixed;
+    /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1;
+    /* Stay on top */
+    top: 0;
+    /* Stay at the top */
+    left: 0;
+    background-color: #111;
+    /* Black */
+    overflow-x: hidden;
+    /* Disable horizontal scroll */
+    padding-top: 20px;
   }
+
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    color: rgb(20, 20, 20);
+    display: block;
+    transition: 0.3s;
+  }
+
   .sidenav a:hover {
-  color: #f1f1f1;
-}
-.table-responsive{
-    margin-left : 12%;
+    color: #f1f1f1;
+  }
+
+  .table-responsive {
+    margin-left: 12%;
     padding: 0px 10px;
-}
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
+  }
+
+  @media screen and (max-height: 450px) {
+    .sidenav {
+      padding-top: 15px;
+    }
+
+    .sidenav a {
+      font-size: 18px;
+    }
+  }
 </style>
 <?php
-if(empty($_COOKIE["adminemail"]) && empty($_COOKIE["adminpassword"])&& empty($_COOKIE["patientemail"]))
-{
-    echo "<script>document.location.href='/HMS_PROJECT/login'</script>";  
+if (
+  empty($_COOKIE["adminemail"]) && empty($_COOKIE["adminpassword"])
+  && empty($_COOKIE["patientemail"]) && empty($_COOKIE["employeemail"])
+  && empty($_COOKIE["doctoremail"])&& empty($_COOKIE["nurseemail"])
+) {
+  echo "<script>document.location.href='/HMS_PROJECT/login'</script>";
 }
 ?>
 <div class="col-md-2 sidenav" style="background-color:rgb(118, 71, 255); color:white;">
@@ -51,24 +72,29 @@ if(empty($_COOKIE["adminemail"]) && empty($_COOKIE["adminpassword"])&& empty($_C
   <a href="/HMS_PROJECT/liste_invoice">Transactions</a>
   <a href="/HMS_PROJECT/liste_diagnostic">Diagnostiques</a>
   <form method="post">
-  <button type="submit" name="deco" class="btn btn-danger" style="margin-left:40px; margin-top:10px;"><i class="fas fa-sign-out-alt"></i></button>
-  <?php
-  //echo $_COOKIE["adminemail"];
-    if(isset($_POST["deco"]))
-    {
-      if(isset($_COOKIE["adminemail"]))
-       setcookie("adminemail",$_COOKIE["adminemail"], time()-3601);
-      if(isset($_COOKIE["patientemail"]))
-       setcookie("patientemail",$_COOKIE["patientemail"], time()-3601);
+    <button type="submit" name="deco" class="btn btn-danger" style="margin-left:40px; margin-top:10px;"><i class="fas fa-sign-out-alt"></i></button>
+    <?php
+    if (isset($_POST["deco"])) {
+      if (isset($_COOKIE["adminemail"]))
+        setcookie("adminemail", $_COOKIE["adminemail"], time() - 3601);
+      if (isset($_COOKIE["patientemail"]))
+        setcookie("patientemail", $_COOKIE["patientemail"], time() - 3601);
+      if (isset($_COOKIE["employeemail"]))
+        setcookie("employeemail", $_COOKIE["employeemail"], time() - 3601);
+      if (isset($_COOKIE["nurseemail"]))
+        setcookie("nurseemail", $_COOKIE["nurseemail"], time() - 3601);
+      if (isset($_COOKIE["doctoremail"]))
+        setcookie("doctoremail", $_COOKIE["doctoremail"], time() - 3601);
 
-      echo "<script>document.location.href='/HMS_PROJECT/'</script>"; 
-      if(empty($_COOKIE["adminemail"])&&empty($_COOKIE["patientemail"]))
-      {
-        echo "<script>document.location.href='/HMS_PROJECT/'</script>"; 
-         
+      echo "<script>document.location.href='/HMS_PROJECT/'</script>";
+      if (
+        empty($_COOKIE["adminemail"]) && empty($_COOKIE["patientemail"]) &&
+        empty($_COOKIE["employeemail"]) && empty($_COOKIE["nurseemail"]) && empty($_COOKIE["doctoremail"])
+      ) {
+        echo "<script>document.location.href='/HMS_PROJECT/'</script>";
       }
     }
-    
-  ?>
+
+    ?>
   </form>
 </div>

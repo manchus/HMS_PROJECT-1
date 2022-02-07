@@ -2,6 +2,22 @@
 
 class EmployeManager extends Model
 {
+    public function loginEmploye()
+    {
+        
+        $this->getBdd();
+        if(isset($_POST["login"]) && !empty($_POST))
+        {
+            return $this->login('employee','Employe',
+            $_POST["email"],$_POST["mdp"],"liste_medecin","employeemail");
+        }
+        if(isset($_COOKIE["employeemail"]))
+        {
+            echo "<script>document.location.href='/HMS_PROJECT/liste_medecin'</script>";  
+        }
+        
+    }
+
     public function getEmployes()
     {
         $this->getBdd();

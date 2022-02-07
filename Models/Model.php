@@ -64,11 +64,26 @@ Abstract class Model
             $sql = "SELECT appointment.id, ".$table.".nom, ".$table.".prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment.".$field.") as _qte_rv 
             FROM appointment,".$table." WHERE appointment.".$field." = ".$table.".id 
             AND appointment.date_rendezvous ".($way==0?"<":">=")." CURRENT_DATE() GROUP BY ".$field.";"; 
-        if(isset($_COOKIE["patientemail"]))
-        $sql = "SELECT appointment.id, ".$table.".nom, ".$table.".prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment.".$field.") as _qte_rv 
-        FROM appointment,".$table." WHERE appointment.".$field." = ".$table.".id AND ".$table.".id = ".$_COOKIE["patientemail"]."
-        AND appointment.date_rendezvous ".($way==0?"<":">=")." CURRENT_DATE() GROUP BY ".$field.";"; 
-
+        if(isset($_COOKIE["employeemail"]))
+            $sql = "SELECT appointment.id, ".$table.".nom, ".$table.".prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment.".$field.") as _qte_rv 
+            FROM appointment,".$table." WHERE appointment.".$field." = ".$table.".id 
+            AND appointment.date_rendezvous ".($way==0?"<":">=")." CURRENT_DATE() GROUP BY ".$field.";"; 
+        if(isset($_COOKIE["nurseemail"]))
+            $sql = "SELECT appointment.id, ".$table.".nom, ".$table.".prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment.".$field.") as _qte_rv 
+            FROM appointment,".$table." WHERE appointment.".$field." = ".$table.".id 
+            AND appointment.date_rendezvous ".($way==0?"<":">=")." CURRENT_DATE() GROUP BY ".$field.";"; 
+        if(isset($_COOKIE["doctoremail"]))
+            $sql = "SELECT appointment.id, ".$table.".nom, ".$table.".prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment.".$field.") as _qte_rv 
+            FROM appointment,".$table." WHERE appointment.".$field." = ".$table.".id 
+            AND appointment.date_rendezvous ".($way==0?"<":">=")." CURRENT_DATE() GROUP BY ".$field.";"; 
+ 
+        if(isset($_COOKIE["patientemail"])){
+            $sql = "SELECT appointment.id, ".$table.".nom, ".$table.".prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment.".$field.") as _qte_rv 
+            FROM appointment,".$table." WHERE appointment.".$field." = ".$table.".id AND ".$table.".id = ".$_COOKIE["patientemail"]."
+            AND appointment.date_rendezvous ".($way==0?"<":">=")." CURRENT_DATE() GROUP BY ".$field.";"; 
+    
+        }
+       
         $query = self::$_db->prepare($sql);
         $query->execute();
         while($data = $query->fetch(PDO::FETCH_ASSOC))
@@ -403,4 +418,3 @@ pagos
         $query->closeCursor();
     }
 }
-?>

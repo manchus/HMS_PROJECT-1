@@ -6,17 +6,22 @@ include("Public/sidebar.php");
 ?>
 
 <div class="col-10 table-responsive">
-  <h4><?php echo ($this->_usr); echo(" > "); echo ($this->_name); ?></h4>
+<p class="h3"><?php echo ($this->_usr); echo(" > ");?>
+  <small class="text-muted"> <?php echo ($this->_name);?> </small></h3>
   <h2><?php echo ($this->_t)   ?></h2>
 </div>
 <div class="col-10 table-responsive">
   <br>
+  <?php if(isset($_COOKIE["adminemail"])){ ?>
+
+  
   <a href="/HMS_PROJECT/liste_rendezvous&user=patient" class="btn btn-secondary float-right"><i class="fas fa-hospital-user"></i> Patients</a>
   <a href="/HMS_PROJECT/liste_rendezvous&user=medicin" class="btn btn-info float-right"><i class="fas fa-user-md"></i> Medicin</a>
   <br>
   <p class="h4">Ajouter rendez-vous
     <a href="/HMS_PROJECT/ajout_rendezvous" class="btn btn-info float-right"><i class="fas fa-plus-square"></i></a>
   </p>
+  <?php } ?>
   <br>
   <h3><b>Rendez-vous programmés</b></h3>
   <br>

@@ -2,6 +2,24 @@
 
 class DoctorManager extends Model
 {
+
+    public function loginDoctor()
+    {
+        
+        $this->getBdd();
+        if(isset($_POST["login"]) && !empty($_POST))
+        {
+            return $this->login('doctor','Doctor',
+            $_POST["email"],$_POST["mdp"],"liste_medecin","doctoremail");
+        }
+        if(isset($_COOKIE["doctoremail"]))
+        {
+            echo "<script>document.location.href='/HMS_PROJECT/liste_medecin'</script>";  
+        }
+        
+    }
+
+
     public function getDoctors()
     {
         $this->getBdd();

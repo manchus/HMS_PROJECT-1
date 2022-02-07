@@ -13,12 +13,12 @@ class View
             $this->_usr = "Administrateur";
         if(isset($_COOKIE["patientemail"]))
             $this->_usr = "Patient";
-        if(isset($_COOKIE["medecinmail"]))
+        if(isset($_COOKIE["doctoremail"]))
             $this->_usr = "Médecins";
-        if(isset($_COOKIE["infirmieremail"]))
+        if(isset($_COOKIE["nurseemail"]))
             $this->_usr = "Infirmière";
-        if(isset($_COOKIE["employeeemail"]))
-            $this->_usr = "Infirmière";
+        if(isset($_COOKIE["employeemail"]))
+            $this->_usr = "Employé";
     if(isset($_COOKIE["nom"]))   
         $this->_name = $_COOKIE["nom"]." ".$_COOKIE["prenom"];
     }

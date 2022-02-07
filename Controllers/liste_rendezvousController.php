@@ -49,6 +49,17 @@ class liste_rendezvousController
             $this->_view = new View('liste_rendezvous');
             $this->_view->generate(array( 'doctor' => $docOld,'doctorN' => $docNew, 'patient'=>$patOld,'patientN'=>$patNew,'usr'=>$usr));
         }
+        if(isset($_COOKIE["employeemail"])){
+            $this->_manager = new SummaryUserAppointmentManager;
+            $docOld = $this->_manager->getSummaryUserAppointmentSummary("patient","SummaryUserAppointment","id_patient",0);
+            $patOld = $this->_manager->getSummaryUserAppointmentSummary("patient","SummaryUserAppointment","id_patient",0);
+            $this->_manager = new ListUserAppointmentManager;
+            $docNew = $this->_manager->getListUserAppointmentSummary("patient","ListUserAppointment","id_patient",1);
+            $patNew = $this->_manager->getListUserAppointmentSummary("patient","ListUserAppointment","id_patient",1);
+    
+            $this->_view = new View('liste_rendezvous');
+            $this->_view->generate(array( 'doctor' => $docOld,'doctorN' => $docNew, 'patient'=>$patOld,'patientN'=>$patNew,'usr'=>$usr));
+        }
 
     }
 

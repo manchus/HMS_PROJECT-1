@@ -6,6 +6,9 @@ class LoginController
     private $_view;
     private $_adminmanager;
     private $_patientmanager;
+    private $_employemanager;
+    private $_nursemanager;
+    private $_doctormanager;
 
     public function __construct($url)
     {
@@ -24,6 +27,15 @@ class LoginController
                 }
                 else if($_GET["tusr"]=="admin"){
                     $this->loginAdmins();
+                }
+                else if($_GET["tusr"]=="employee"){
+                    $this->loginEmployee();
+                }
+                else if($_GET["tusr"]=="doctor"){
+                    $this->loginDoctor();
+                }
+                else if($_GET["tusr"]=="nurse"){
+                    $this->loginNurse();
                 }
 
     
@@ -54,6 +66,27 @@ class LoginController
         
         $this->_view = new View('login');
         $this->_view->generate(array('patient' => $patient));
+    }
+    private function loginEmployee()
+    {
+        $this->_employemanager = new EmployeManager;
+        $employe = $this->_employemanager->loginEmploye();
+        $this->_view = new View('login');
+        $this->_view->generate(array('employe' => $employe));
+    }
+    private function loginDoctor()
+    {
+        $this->_doctormanager = new DoctorManager;
+        $doctor = $this->_doctormanager->loginDoctor();
+        $this->_view = new View('login');
+        $this->_view->generate(array('doctor' => $doctor));
+    }
+    private function loginNurse()
+    {
+        $this->_nursemanager = new NurseManager;
+        $nurse = $this->_nursemanager->loginNurse();
+        $this->_view = new View('login');
+        $this->_view->generate(array('nurse' => $nurse));
     }
 }
 ?>

@@ -1,6 +1,22 @@
 <?php
 class NurseManager extends Model
 {
+    public function loginNurse()
+    {
+        
+        $this->getBdd();
+        if(isset($_POST["login"]) && !empty($_POST))
+        {
+            return $this->login('nurse','Nurse',
+            $_POST["email"],$_POST["mdp"],"liste_medecin","nurseemail");
+        }
+        if(isset($_COOKIE["nurseemail"]))
+        {
+            echo "<script>document.location.href='/HMS_PROJECT/liste_medecin'</script>";  
+        }
+        
+    }
+
     public function getNurses()
     {
         $this->getBdd();
