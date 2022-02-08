@@ -59,18 +59,58 @@ if (
 }
 ?>
 <div class="col-md-2 sidenav" style="background-color:rgb(118, 71, 255); color:white;">
-  <a href="/HMS_PROJECT/liste_dep">Départements</a>
-  <a href="#collapseMedecin" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseMedecin">Médecins</a>
+  
+  <?php
+  $showDepart = false; 
+  $showMedicin = false;
+  $showPatient = false;
+  $showInfirmiers = false;
+  $showEmployes = false;
+  $showRendezVous = false;
+  $showTransactio = false;
+  $showDiagnostique = false;
+  
+
+  
+  if(isset($_COOKIE["adminemail"])||isset($_COOKIE["employeemail"])||isset($_COOKIE["nurseemail"])
+          ||isset($_COOKIE["doctoremail"])) $showDepart = true; 
+        if(isset($_COOKIE["adminemail"])||isset($_COOKIE["employeemail"])||isset($_COOKIE["nurseemail"])
+          ||isset($_COOKIE["doctoremail"])) $showMedicin = true;
+        if(isset($_COOKIE["adminemail"])||isset($_COOKIE["nurseemail"])
+          ||isset($_COOKIE["doctoremail"])) $showPatient = true;
+        if(isset($_COOKIE["adminemail"])||isset($_COOKIE["employeemail"])||isset($_COOKIE["nurseemail"])
+          ||isset($_COOKIE["doctoremail"])) $showInfirmiers = true;
+        if(isset($_COOKIE["adminemail"])||isset($_COOKIE["employeemail"])||isset($_COOKIE["nurseemail"])
+          ||isset($_COOKIE["doctoremail"])) $showEmployes = true;
+        if(isset($_COOKIE["adminemail"])||isset($_COOKIE["nurseemail"])
+          ||isset($_COOKIE["doctoremail"])||isset($_COOKIE["patientemail"])) $showRendezVous = true;
+        if(isset($_COOKIE["adminemail"])||isset($_COOKIE["employeemail"])||isset($_COOKIE["nurseemail"])
+          ||isset($_COOKIE["doctoremail"])||isset($_COOKIE["patientemail"])) $showTransactio = true;
+        if(isset($_COOKIE["adminemail"])||isset($_COOKIE["nurseemail"])
+          ||isset($_COOKIE["doctoremail"])||isset($_COOKIE["patientemail"])) $showDiagnostique = true;
+   
+    if($showDepart)
+    echo('<a href="/HMS_PROJECT/liste_dep">Départements</a>');
+    if($showMedicin)
+  echo('<a href="#collapseMedecin" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseMedecin">Médecins</a>
   <div class="collapse" id="collapseMedecin" style="margin-left:5%;">
     <a href="/HMS_PROJECT/liste_medecin">Médecins</a>
-    <a href="/HMS_PROJECT/liste_docdep">Médecins à l'hôpital</a>
-  </div>
-  <a href="/HMS_PROJECT/liste_patient">Patients</a>
-  <a href="/HMS_PROJECT/liste_infirmier">Infirmiers</a>
-  <a href="/HMS_PROJECT/liste_employe">Employés</a>
-  <a href="/HMS_PROJECT/liste_rendezvous">Rendez-vous</a>
-  <a href="/HMS_PROJECT/liste_invoice">Transactions</a>
-  <a href="/HMS_PROJECT/liste_diagnostic">Diagnostiques</a>
+    <a href="/HMS_PROJECT/liste_docdep">Médecins à l\'hôpital</a>
+  </div>');
+  if($showPatient)
+    echo('<a href="/HMS_PROJECT/liste_patient">Patients</a>');
+    if($showInfirmiers)
+    echo('<a href="/HMS_PROJECT/liste_infirmier">Infirmiers</a>');
+    if($showEmployes)
+    echo('<a href="/HMS_PROJECT/liste_employe">Employés</a>');
+    if($showRendezVous)
+    echo('<a href="/HMS_PROJECT/liste_rendezvous">Rendez-vous</a>');
+    if($showTransactio)
+    echo('<a href="/HMS_PROJECT/liste_invoice">Transactions</a>');
+    if($showDiagnostique)
+    echo('<a href="/HMS_PROJECT/liste_diagnostic">Diagnostiques</a>');
+
+  ?>
   <form method="post">
     <button type="submit" name="deco" class="btn btn-danger" style="margin-left:40px; margin-top:10px;"><i class="fas fa-sign-out-alt"></i></button>
     <?php
