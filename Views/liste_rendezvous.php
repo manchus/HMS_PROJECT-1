@@ -92,7 +92,7 @@ include("Public/sidebar.php");
         if ($usr == "medicin")
           echo ("<th scope='col'>Pris avec</th>");
 
-        else //$_GET["user"]=="patient"
+        else 
           echo ("<th scope='col'>Pris par</th>");
         ?>
 

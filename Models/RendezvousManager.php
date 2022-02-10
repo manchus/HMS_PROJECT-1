@@ -43,12 +43,16 @@ class RendezvousManager extends Model
         $this->getBdd();
         if(isset($_POST["update"]) && !empty($_POST))
         {
-            //var_dump($_POST);
-            //var_dump($_GET);
             echo "<script>window.location.href = '/HMS_PROJECT/liste_rendezvous';</script>";
             return $this->updateAppointment('appointment',$_POST["id_patient"],$_POST["id_medecin"],
             $_POST["date_rendezvous"],$_POST["heure_rendezvous"],'Appointment',$_GET["id"]);
         }
+    }
+    
+    public function getRendezvousDetailId($id)
+    {
+        $this->getBdd();
+        return $this->details('appointment','Rendezvous','id',$id);
     }
 }
 

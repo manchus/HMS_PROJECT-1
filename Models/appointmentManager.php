@@ -24,9 +24,16 @@ class AppointmentManager extends Model
         if(isset($_GET["id"]))
             return $this->details("appointment","Appointment","id",$_GET["id"]);
     }
-    public function getAppointmentDetailId($id)
+
+    public function updateRendezvous()
     {
         $this->getBdd();
-        return $this->details("appointment","Appointment","id",$id);
+        if(isset($_POST["update"]) && !empty($_POST))
+        {
+            echo "<script>window.location.href = '/HMS_PROJECT/liste_rendezvous';</script>";
+            return $this->updateAppointment('appointment',$_POST["id_patient"],$_POST["id_medecin"],
+            $_POST["date_rendezvous"],$_POST["heure_rendezvous"],'Appointment',$_GET["id"]);
+        }
     }
+
 }

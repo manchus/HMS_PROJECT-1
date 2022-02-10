@@ -1,39 +1,35 @@
 <br>
 <?php $this->_t = "Modification du Rendez vous" ?>
-
+<?php var_dump($_GET);
+ var_dump($_POST);
+?>
 <form method="post" class="form-group container jumbotron" id="form" enctype="multipart/form-data">
     <label for="id_patient">Nom du Patient<b style="color:red;">*</b></label>
         <div class="row">
             <div class="col">
-                <select name="id_patient">
-                    <?php foreach($patient as $pa): ?>
-                        <option value="<?=$pa->id()?>">Dr.<?= $pa->prenom(); ?> <?= $pa->nom(); ?></option>
-                    <?php endforeach; ?>
-                </select>            
+                    <label><?php echo($patient->nom()." ".$patient->prenom()); ?></label>            
             </div>
         </div>
         <br>
         <label for="id_medecin">Medecin <b style="color:red;">*</b></label>
         <div class="row">
             <div class="col">
-                <select name="id_medecin">
-                    <?php foreach($medecin as $me): ?>
-                        <option value="<?=$me->id()?>">Dr.<?= $me->prenom(); ?> <?= $me->nom(); ?></option>
-                    <?php endforeach; ?>
-                </select> 
+            <div class="col">
+                    <label><?php echo($doctor->nom()." ".$doctor->prenom()); ?></label>            
+            </div>
             </div>
         </div>
         <br>
         <label for="date_rendezvous">Date <b style="color:red;">*</b></label>
         <div class="row">
             <div class="col-6">
-            <input type="date" class="form-control" placeholder="Date de Rendez vous" id="date_rendezvous" name="date_rendezvous" required>
+            <input type="date" class="form-control" value="<?php echo($rendezvous->date_rendezvous()); ?>" name="date_rendezvous" required>
             </div>
         </div>
         <label for="heure_rendezvous">Heure <b style="color:red;">*</b></label>
         <div class="row">
             <div class="col-4">
-            <input type="time" class="form-control" placeholder="Date de Rendez vous" id="heure_rendezvous" name="heure_rendezvous" required>
+            <input type="time" class="form-control" value="<?php echo($rendezvous->heure_rendezvous()); ?>" id="heure_rendezvous" name="heure_rendezvous" min="8:00" max="18:00" step="6000" required>
              </div>
         </div>
         <br>

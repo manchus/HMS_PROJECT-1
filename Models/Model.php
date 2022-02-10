@@ -64,10 +64,6 @@ Abstract class Model
             $sql = "SELECT appointment.id, ".$table.".nom, ".$table.".prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment.".$field.") as _qte_rv 
             FROM appointment,".$table." WHERE appointment.".$field." = ".$table.".id 
             AND appointment.date_rendezvous ".($way==0?"<":">=")." CURRENT_DATE() GROUP BY ".$field.";"; 
-        if(isset($_COOKIE["employeemail"]))
-            $sql = "SELECT appointment.id, ".$table.".nom, ".$table.".prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment.".$field.") as _qte_rv 
-            FROM appointment,".$table." WHERE appointment.".$field." = ".$table.".id 
-            AND appointment.date_rendezvous ".($way==0?"<":">=")." CURRENT_DATE() GROUP BY ".$field.";"; 
         if(isset($_COOKIE["nurseemail"]))
             $sql = "SELECT appointment.id, ".$table.".nom, ".$table.".prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment.".$field.") as _qte_rv 
             FROM appointment,".$table." WHERE appointment.".$field." = ".$table.".id 
@@ -76,8 +72,7 @@ Abstract class Model
             $sql = "SELECT appointment.id, ".$table.".nom, ".$table.".prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment.".$field.") as _qte_rv 
             FROM appointment,".$table." WHERE appointment.".$field." = ".$table.".id 
             AND appointment.date_rendezvous ".($way==0?"<":">=")." CURRENT_DATE() GROUP BY ".$field.";"; 
- 
-        if(isset($_COOKIE["patientemail"])){
+         if(isset($_COOKIE["patientemail"])){
             $sql = "SELECT appointment.id, ".$table.".nom, ".$table.".prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment.".$field.") as _qte_rv 
             FROM appointment,".$table." WHERE appointment.".$field." = ".$table.".id AND ".$table.".id = ".$_COOKIE["patientemail"]."
             AND appointment.date_rendezvous ".($way==0?"<":">=")." CURRENT_DATE() GROUP BY ".$field.";"; 
@@ -252,12 +247,17 @@ pagos
     }
     public function updateAppointment($table,$id_patient,$id_medecin,$date,$heure,$obj,$id)
     {
-        $sql = "update ".$table." set id_patient=?,id_medecin=?,date_rendezvous=?,heure_rendezvous=? 
-        where id=?";
-        var_dump($sql);
-
+        if(isset($id_patient)&&isset($id_medecin))
+            $sql = "update ".$table." set id_patient=?,id_medecin=?,date_rendezvous=?,heure_rendezvous=? where id=?";
+        else
+            $sql = "update ".$table." set date_rendezvous=?, heure_rendezvous=? where id=?";
+       
         $query = self::$_db->prepare($sql);
-        $query->execute([$id_patient,$id_medecin,$date,$heure, $id]);
+        
+        if(isset($id_patient)&&isset($id_medecin))
+            $query->execute([$id_patient,$id_medecin,$date,$heure,$id]);
+        else
+            $query->execute([$date,$heure, $id]);
         
         $data = array("id_patient" => $id_patient,"id_medecin" => $id_medecin, "date_rendezvous" => $date,
         "heure_rendezvous" => $heure, "id" => $id);
