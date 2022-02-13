@@ -5,6 +5,7 @@ class liste_invoiceController
 {
     private $_view;
     private $_manager;
+    
 
     public function __construct($url)
     {

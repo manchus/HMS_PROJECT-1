@@ -12,6 +12,9 @@
             }
             else
             {
+                if (!isset($_POST["update"]))
+                $this->getEmployeUpdate();
+            else
                 $this->employes();
             }
         }
@@ -23,6 +26,15 @@
     
             $this->_view = new View('modif_employe');
             $this->_view->generate(array('employe' => $docs));
+        }
+
+        private function getEmployeUpdate()
+        {
+            $this->_employemanager = new EmployeManager;
+            $employ = $this->_employemanager->getEmployeDetail();
+    
+            $this->_view = new View('modif_employe');
+            $this->_view->generate(array('employe' => $employ));
         }
     }
 ?>

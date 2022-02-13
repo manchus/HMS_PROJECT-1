@@ -25,19 +25,14 @@ include("Public/sidebar.php");
       </tr>
     </thead>
     <?php
-    $appointmentm = new AppointmentManager;
-    $patientm = new PatientManager;
-    $doctorm = new DoctorManager;
+
     foreach ($invoice as $d) {
-      $curRV = $appointmentm->getAppointmentDetailId($d->id_rendezvous());
-      $curPat = $patientm->getPatientDetailId($curRV->id_patient());
-      $curDoc = $doctorm->getDoctorDetailId($curRV->id_medecin());
 
     ?>
       <tbody>
         <tr>
-          <td><?= $curPat->nom() ?> <?= $curPat->prenom() ?></td>
-          <td>Dr. <?= $curDoc->nom() ?> <?= $curDoc->prenom() ?></td>
+          <td><?= $d->id() ?></td>
+          <td><?= $d->id_rendezvous() ?></td>
           <td><?= $d->prix_rendezvous() ?></td>
           <td>
             <a href="http://localhost/HMS_PROJECT/index.php?url=detail_invoice&id=<?= $d->id(); ?>" id="link" style="text-decoration:none;" id="link" style="text-decoration:none;"><i class="fas fa-info-circle"></i> </a>

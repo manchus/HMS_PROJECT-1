@@ -1,6 +1,5 @@
 <?php
 $this->_t = "Détail d'un employé";
-    foreach($employe as $d):
         ?>
         <style>
           .container{
@@ -9,7 +8,7 @@ $this->_t = "Détail d'un employé";
             background-color:rgb(209, 255, 255)
           }
           .card-img-top{
-
+            border-style: none;
           }
         </style>
         <br><br>
@@ -17,38 +16,38 @@ $this->_t = "Détail d'un employé";
           <br>
         <div class="row">
           <div class="col-md-4">
-            <img class="img-rounded" src="./Public/img/data/<?=$d->photo()?>" style="width:100%;height:100%" alt="Dr.<?=$d->prenom()?> <?=$d->nom()?>">
+            <img class="img-rounded" src="./Public/img/data/<?=$employe->photo()?>" style="width:100%;height:100%" alt="Dr.<?=$employe->prenom()?> <?=$employe->nom()?>">
           </div>
           <div class="col-md-8">
           <table class="table">
           <tbody>
             <tr>
-              <th>Nom complet du médecin</th>
-              <td><?=$d->prenom()?> <?=$d->nom()?></td>
+              <th>Nom complet de l'employé</th>
+              <td><?=$employe->prenom()?> <?=$employe->nom()?></td>
             </tr>
             <tr>
               <th>Date de naissance</th>
-              <td><?=$d->date_naissance()?></td>
+              <td><?=$employe->date_naissance()?></td>
             </tr>
             <tr>
               <th>Adresse Email</th>
-              <td><?=$d->email()?></td>
+              <td><?=$employe->email()?></td>
             </tr>
             <tr>
               <th>Son travail</th>
-              <td><?=$d->fonction()?></td>
+              <td><?=$employe->fonction()?></td>
             </tr>
             <tr>
               <th>Adresse Courriel</th>
-              <td><?=$d->adresse()?>, <?=$d->code_postal()?>, <?=$d->ville()?>, <?=$d->province()?></td>
+              <td><?=$employe->adresse()?>, <?=$employe->code_postal()?>, <?=$employe->ville()?>, <?=$employe->province()?></td>
             </tr>
             <tr>
               <th>Numéro de téléphone</th>
-              <td><?=$d->telephone()?></td>
+              <td><?=$employe->telephone()?></td>
             </tr>
             <tr>
               <th>CV</th>
-              <td><a href="./Public/doc/<?=$d->cv()?>" target="_blank"><button class="btn btn-info"><?=$d->cv()?></button></a></td>
+              <td><a href="./Public/doc/<?=$employe->cv()?>" target="_blank"><button class="btn btn-info"><?=$employe->cv()?></button></a></td>
             </tr>
           </tbody>
         </table>
@@ -58,6 +57,3 @@ $this->_t = "Détail d'un employé";
             <br>
             </div>
         
-<?php
-    endforeach;
-?>

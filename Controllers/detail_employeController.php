@@ -14,14 +14,14 @@ class Detail_EmployeController
         }
         else
         {
-            $this->nursedetail();
+            $this->employedetail();
         }
     }
 
-    private function nursedetail()
+    private function employedetail()
     {
-        $this->_nursemanager = new EmployeManager;
-        $nurs = $this->_nursemanager->getEmployeDetail();
+        $this->_employemanager = new EmployeManager;
+        $nurs = $this->_employemanager->getEmployeDetail();
 
         $this->_view = new View('detail_employe');
         $this->_view->generate(array('employe' => $nurs));

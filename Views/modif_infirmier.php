@@ -35,20 +35,19 @@
             </div>
             <div class="col-2">
                 <select class="form-control" name="province" required>
-                    <option selected>Province</option>
-                    <option value="AB">Alberta</option>
-                    <option value="BC">Colombie-Britanique</option>
-                    <option value="PE">Île-Du-Prince-Édouard</option>
-                    <option value="MB">Manitoba</option>
-                    <option value="NB">Nouveau-Brunswick</option>
-                    <option value="NS">Nouvelle-Écosse</option>
-                    <option value="NU">Nunavut</option>
-                    <option value="ON">Ontario</option>
-                    <option value="QC">Québec</option>
-                    <option value="SK">Sackatchewan</option>
-                    <option value="NL">Terre-Neuve-et-Labrador</option>
-                    <option value="NT">Territoires du Nord-Ouest</option>
-                    <option value="YK">Yukon</option>
+                    <option value="AB" <?php echo($nurse->province()=="AB"? "selected":"");?>>Alberta</option>
+                    <option value="BC" <?php echo($nurse->province()=="BC"? "selected":"");?>>Colombie-Britanique</option>
+                    <option value="PE" <?php echo($nurse->province()=="PE"? "selected":"");?>>Île-Du-Prince-Édouard</option>
+                    <option value="MB" <?php echo($nurse->province()=="MB"? "selected":"");?>>Manitoba</option>
+                    <option value="NB" <?php echo($nurse->province()=="NB"? "selected":"");?>>Nouveau-Brunswick</option>
+                    <option value="NS" <?php echo($nurse->province()=="NS"? "selected":"");?>>Nouvelle-Écosse</option>
+                    <option value="NU" <?php echo($nurse->province()=="NU"? "selected":"");?>>Nunavut</option>
+                    <option value="ON" <?php echo($nurse->province()=="ON"? "selected":"");?>>Ontario</option>
+                    <option value="QC" <?php echo($nurse->province()=="QC"? "selected":"");?>>Québec</option>
+                    <option value="SK" <?php echo($nurse->province()=="SK"? "selected":"");?>>Sackatchewan</option>
+                    <option value="NL" <?php echo($nurse->province()=="NL"? "selected":"");?>>Terre-Neuve-et-Labrador</option>
+                    <option value="NT" <?php echo($nurse->province()=="NT"? "selected":"");?>>Territoires du Nord-Ouest</option>
+                    <option value="YK" <?php echo($nurse->province()=="YK"? "selected":"");?>>Yukon</option>
                 </select>
             </div>
         </div>
