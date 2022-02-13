@@ -36,7 +36,7 @@ class NurseManager extends Model
         $this->getBdd();
         if(isset($_GET["id"]))
         {
-            if(isset($_POST["update"]) && !empty($_POST) && isset($_FILES['photo']['name']))
+            if(isset($_POST["update"]) && !empty($_POST))// && isset($_FILES['photo']['name']))
             {
                 $id = $_GET["id"];
                 echo "<script>window.location.href = '/HMS_PROJECT/liste_infirmier';</script>";
