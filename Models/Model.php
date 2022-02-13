@@ -290,6 +290,8 @@ pagos
 
         $query->closeCursor();
     }
+
+
     public function updateDocDep($table,$obj,$id_dep,$id_doc,$id)
     {
         $sql = "update ".$table." set id_dep=?, id_doc=? where id=?;";

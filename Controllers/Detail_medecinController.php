@@ -26,5 +26,6 @@ class Detail_medecinController
         $this->_view = new View('detail_medecin');
         $this->_view->generate(array('doctor' => $docs));
     }
+    
 }
 ?>

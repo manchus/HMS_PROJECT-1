@@ -1,6 +1,6 @@
 <?php
 $this->_t = "Détail du patient";
-    foreach($patient as $d):
+
         ?>
         <style>
           .container{
@@ -9,7 +9,7 @@ $this->_t = "Détail du patient";
             background-color:rgb(209, 255, 255)
           }
           .card-img-top{
-
+            border-style:none;
           }
         </style>
         <br><br>
@@ -21,27 +21,27 @@ $this->_t = "Détail du patient";
           <tbody>
             <tr>
               <th>Nom complet du patient</th>
-              <td><?=$d->prenom()?> <?=$d->nom()?></td>
+              <td><?=$patient->prenom()?> <?=$patient->nom()?></td>
             </tr>
             <tr>
               <th>Date de naissance</th>
-              <td><?=$d->date_naissance()?></td>
+              <td><?=$patient->date_naissance()?></td>
             </tr>
             <tr>
               <th>Adresse Email</th>
-              <td><?=$d->email()?></td>
+              <td><?=$patient->email()?></td>
             </tr>
             <tr>
               <th>Adresse Courriel</th>
-              <td><?=$d->adresse()?>, <?=$d->code_postal()?>, <?=$d->ville()?>, <?=$d->province()?></td>
+              <td><?=$patient->adresse()?>, <?=$patient->code_postal()?>, <?=$patient->ville()?>, <?=$patient->province()?></td>
             </tr>
             <tr>
               <th>Numéro de téléphone</th>
-              <td><?=$d->telephone()?></td>
+              <td><?=$patient->telephone()?></td>
             </tr>
             <tr>
               <th>Cause du rendez-vous</th>
-              <td><?=$d->description()?></td>
+              <td><?=$patient->description()?></td>
             </tr>
           </tbody>
         </table>
@@ -51,6 +51,3 @@ $this->_t = "Détail du patient";
             <br>
             </div>
         
-<?php
-    endforeach;
-?>

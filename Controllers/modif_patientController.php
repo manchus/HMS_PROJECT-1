@@ -12,17 +12,30 @@
             }
             else
             {
-                $this->doctors();
+                if(!isset($_POST["update"]))
+                    $this->getPatientUpdate();
+                else
+                    $this->patients();
+                
             }
         }
     
-        private function doctors()
+        private function patients()
         {
             $this->_doctormanager = new PatientManager;
-            $docs = $this->_doctormanager->updatepatient();
+            $pat = $this->_doctormanager->updatepatient();
     
             $this->_view = new View('modif_patient');
-            $this->_view->generate(array('patient' => $docs));
+            $this->_view->generate(array('patient' => $pat));
+        }
+
+        private function getPatientUpdate()
+        {
+            $this->_patientmanager = new PatientManager;
+            $pat = $this->_patientmanager->getPatientDetail();
+            
+            $this->_view = new View('modif_patient');
+            $this->_view->generate(array('patient' => $pat));
         }
     }
 ?>

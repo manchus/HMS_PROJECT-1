@@ -14,6 +14,9 @@ class modif_depController
         }
         else
         {
+            if(!isset($_POST["update"]))
+            $this->getDepUpdate();
+        else
             $this->docdep();
         }
     }
@@ -23,6 +26,15 @@ class modif_depController
         $this->_manager = new DepartementManager;
         $dep = $this->_manager->updateDepartement();
 
+        $this->_view = new View('modif_dep');
+        $this->_view->generate(array('departement' => $dep));
+    }
+
+    private function getDepUpdate()
+    {
+        $this->_departementmanager = new DepartementManager;
+        $dep = $this->_departementmanager->getDepartementDetail();
+        
         $this->_view = new View('modif_dep');
         $this->_view->generate(array('departement' => $dep));
     }

@@ -16,10 +16,12 @@ class modif_rendezvousController
         }
         else
         {
-            if(isset($_GET["id"]))
-                $this->rdvUpdate($_GET["id"]);
-            if(isset($_POST["update"]))
-                $this->rdv();
+         //   if(isset($_GET["id"]))
+         //       
+            if(!isset($_POST["update"]))
+              $this->rdvUpdate();
+            else
+              $this->rdv();
         }
     }
 
@@ -33,7 +35,7 @@ class modif_rendezvousController
     //    $this->_view->generate(array('rendezvous' => $rdv));
     }
 
-    private function rdvUpdate($id)
+    private function rdvUpdate()
     {
         $this->_manager = new AppointmentManager;
         $rdv = $this->_manager->getAppointmentDetail();

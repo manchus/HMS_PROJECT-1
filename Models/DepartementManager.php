@@ -7,6 +7,17 @@ class DepartementManager extends Model
         $this->getBdd();
         return $this->getAll('departement','Departement');
     }
+
+    public function getDepartementDetail()
+    {
+        $this->getBdd();
+        if(isset($_GET["id"]))
+        {
+            $id = $_GET["id"];
+            return $this->details('departement','Departement','id',$id);
+        }
+    }
+
     public function deleteDepartement()
     {
         $this->getBdd();

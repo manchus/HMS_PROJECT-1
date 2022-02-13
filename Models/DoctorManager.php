@@ -25,6 +25,7 @@ class DoctorManager extends Model
         $this->getBdd();
         return $this->getAll('doctor','Doctor');
     }
+    
     public function getDoctorDetail()
     {
         $this->getBdd();

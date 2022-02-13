@@ -4,34 +4,34 @@
     <label for="nomcomplet">Nom complet <b style="color:red;">*</b></label>
         <div class="row">
             <div class="col">
-                <input type="text" class="form-control" placeholder="Nom" id="nom" name="nom" required>
+                <input type="text" class="form-control" placeholder="Nom" id="nom" value="<?php echo($doctor->nom());?>" name="nom" required>
             </div>
             <div class="col">
-                <input type="text" class="form-control" placeholder="Prénom" id="prenom" name="prenom" required>
+                <input type="text" class="form-control" placeholder="Prénom" id="prenom" value="<?php echo($doctor->prenom());?>" name="prenom" required>
             </div>
         </div>
         <br>
         <label for="datenaissance">Date de naissance <b style="color:red;">*</b></label>
         <div class="row">
             <div class="col">
-                <input type="date" class="form-control" placeholder="Date de naissance" id="ddn" name="ddn" required>
+                <input type="date" class="form-control" placeholder="Date de naissance" id="ddn" value="<?php echo($doctor->date_naissance());?>" name="ddn" required>
             </div>
         </div>
         <br>
         <label for="email">Adresse Email <b style="color:red;">*</b></label>
         <div class="row">
             <div class="col">
-                <input type="email" class="form-control" placeholder="Adresse Email" id="email" name="email" required>
+                <input type="email" class="form-control" placeholder="Adresse Email" id="email" value="<?php echo($doctor->email());?>" name="email" required>
             </div>
         </div>
         <br>
         <label for="adresse">Adresse courriel <b style="color:red;">*</b></label>
         <div class="row">
             <div class="col-6">
-                <input type="text" class="form-control" placeholder="Adresse courriel" id="adresse" name="adresse" required>
+                <input type="text" class="form-control" placeholder="Adresse courriel" id="adresse"  value="<?php echo($doctor->adresse());?>" name="adresse" required>
             </div>
             <div class="col-4">
-                <input type="text" class="form-control" placeholder="Ville" id="ville" name="ville" required>
+                <input type="text" class="form-control" placeholder="Ville" id="ville"  value="<?php echo($doctor->ville());?>" name="ville" required>
             </div>
             <div class="col-2">
                 <select class="form-control" name="province" required>
@@ -56,14 +56,14 @@
         <label for="telephone">Code Postal <b style="color:red;">*</b></label>
         <div class="row">
             <div class="col-4">
-                <input type="text" class="form-control" placeholder="Code Postal" id="code_postal" name="code_postal" required>
+                <input type="text" class="form-control" placeholder="Code Postal" id="code_postal"  value="<?php echo($doctor->code_postal());?>" name="code_postal" required>
             </div>
         </div>
         <br>
         <label for="telephone">Numéro cellulaire <b style="color:red;">*</b></label>
         <div class="row">
             <div class="col">
-                <input type="text" class="form-control" placeholder="Numéro cellulaire" id="telephone" name="telephone" required>
+                <input type="text" class="form-control" placeholder="Numéro cellulaire" id="telephone"  value="<?php echo($doctor->telephone());?>" name="telephone" required>
             </div>
         </div>
         <br>
