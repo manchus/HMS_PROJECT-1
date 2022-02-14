@@ -89,38 +89,27 @@ Abstract class Model
         $query->closeCursor();
     }
 
-    public function getInvoiceList($table, $obj,$field,$way)
+    public function getInvoiceList($opt)
     {
         $var = [];
-        $sql = "SELECT appointment.id, ".$table.".nom, ".$table.".prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment.".$field.") as _qte_rv 
-        FROM appointment,".$table." WHERE appointment.".$field." = ".$table.".id 
-        AND appointment.date_rendezvous ".($way==0?"<":">=")." CURRENT_DATE() GROUP BY ".$field.";"; 
-      /*  SELECT appointment.id, patient.nom, patient.prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment.id) as _qte_rv , SUM(invoice.prix_rendezvous) as value
-        FROM appointment,patient, invoice WHERE appointment.id_patient = patient.id AND appointment.id = invoice.id_rendezvous 
-        AND appointment.date_rendezvous < CURRENT_DATE() GROUP BY patient.id;
+        //$sql = "SELECT  p.id, p.nom, p.prenom
+        $sql = "SELECT  p.id as id_p, p.nom as nom_p, p.prenom as prenom_p, d.id as id_d, d.nom as nom_d, d.prenom as prenom_d, a.id as id_rv, a.date_rendezvous as date_rv, count(a.id) as n_rv, sum(i.prix_rendezvous) as prix_rv
+        FROM patient p, doctor d, appointment a, invoice i
+        WHERE a.id_patient = p.id AND a.id_medecin = d.id AND a.id = i.id_rendezvous GROUP BY ";
 
-        SELECT appointment.id, patient.nom, patient.prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment.id) as _qte_rv , SUM(invoice.prix_rendezvous) as value
-        FROM appointment,patient, invoice WHERE appointment.id_patient = patient.id AND appointment.id = invoice.id_rendezvous 
-        AND appointment.date_rendezvous < CURRENT_DATE() GROUP BY patient.id;
+        if($opt =="patient")
+            $sql = $sql."p.id, d.id; ";
+        if($opt =="doctor")
+            $sql = $sql."d.id, p.id; ";
+        if($opt =="date")
+            $sql = $sql."a.date_rendezvous, p.id;";
+           
 
-
-SELECT appointment.id, appointment.id_patient, appointment.id_medecin, appointment.date_rendezvous, appointment.heure_rendezvous, SUM(invoice.prix_rendezvous), (SELECT COUNT(appointment.id_patient) FROM appointment WHERE appointment.id = invoice.id_rendezvous GROUP by appointment.id_patient) as citas, count(appointment.id_patient) as pagos FROM appointment, invoice WHERE appointment.id = invoice.id_rendezvous AND appointment.date_rendezvous < CURRENT_DATE() GROUP BY appointment.id;
-
-id	
-id_patient	
-id_medecin	
-date_rendezvous	
-heure_rendezvous	
-SUM(invoice.prix_rendezvous)	
-citas	
-pagos	
-
-*/
         $query = self::$_db->prepare($sql);
         $query->execute();
         while($data = $query->fetch(PDO::FETCH_ASSOC))
         {
-            $var[] = new $obj($data);
+            $var[] = new SummaryInvoice($data);
         }
         return $var;
         $query->closeCursor();

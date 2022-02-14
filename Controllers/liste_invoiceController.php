@@ -21,9 +21,8 @@ class liste_invoiceController
 
     private function linv()
     {
-        $this->_manager = new InvoiceManager;
-        $invo = $this->_manager->getInvoice();
-
+        $this->_manager = new SummaryInvoiceManager;
+        $invo = $this->_manager->getSummaryInvoice("patient");
         $this->_view = new View('liste_invoice');
         $this->_view->generate(array('invoice' => $invo));
     }

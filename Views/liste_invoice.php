@@ -18,9 +18,10 @@ include("Public/sidebar.php");
   <table class="table table-bordered">
     <thead>
       <tr class="table-primary">
-        <th scope="col">id_patient</th>
-        <th scope="col">id_medecin</th>
-        <th scope="col">Prix Rendez Vous</th>
+        <th scope="col">Patient</th>
+        <th scope="col">Medecin</th>
+        <th scope="col">Quantité rendez-vous</th>
+        <th scope="col">Prix rendez-vous</th>
         <th></th>
       </tr>
     </thead>
@@ -31,13 +32,14 @@ include("Public/sidebar.php");
     ?>
       <tbody>
         <tr>
-          <td><?= $d->id() ?></td>
-          <td><?= $d->id_rendezvous() ?></td>
-          <td><?= $d->prix_rendezvous() ?></td>
+          <td><?= $d->nom_p()." ".$d->prenom_p() ?></td>
+          <td><?= $d->nom_d()." ".$d->prenom_d() ?></td>
+          <td><?= $d->n_rv() ?></td>
+          <td><?= $d->prix_rv() ?></td>
           <td>
-            <a href="http://localhost/HMS_PROJECT/index.php?url=detail_invoice&id=<?= $d->id(); ?>" id="link" style="text-decoration:none;" id="link" style="text-decoration:none;"><i class="fas fa-info-circle"></i> </a>
-            <a href="http://localhost/HMS_PROJECT/index.php?url=delete_invoice&id=<?= $d->id(); ?>" id="link" style="text-decoration:none;" id="link" style="text-decoration:none;"><i class="fas fa-trash-alt"></i></a>
-            <a href="http://localhost/HMS_PROJECT/index.php?url=modif_invoice&id=<?= $d->id(); ?>" id="link" style="text-decoration:none;"><i class="fas fa-pen-square"></i></a>
+            <a href="http://localhost/HMS_PROJECT/index.php?url=detail_invoice&id=<?= $d->id_p(); ?>" id="link" style="text-decoration:none;" id="link" style="text-decoration:none;"><i class="fas fa-info-circle"></i> </a>
+            <a href="http://localhost/HMS_PROJECT/index.php?url=delete_invoice&id=<?= $d->id_p(); ?>" id="link" style="text-decoration:none;" id="link" style="text-decoration:none;"><i class="fas fa-trash-alt"></i></a>
+            <a href="http://localhost/HMS_PROJECT/index.php?url=modif_invoice&id=<?= $d->id_p(); ?>" id="link" style="text-decoration:none;"><i class="fas fa-pen-square"></i></a>
           </td>
         </tr>
       </tbody>

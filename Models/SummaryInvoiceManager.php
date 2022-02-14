@@ -19,10 +19,10 @@ class SummaryInvoiceManager extends Model
         return $this->getAll('doctor','Doctor');
     }
 
-    public function getSummaryInvoice($table,$obj,$field,$way)
+    public function getSummaryInvoice($order)
     {
         $this->getBdd();
-        return $this->getInvoiceList($table, $obj,$field,$way);
+        return $this->getInvoiceList($order);
     }
 
 
