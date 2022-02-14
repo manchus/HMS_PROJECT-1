@@ -8,11 +8,12 @@ include("Public/sidebar.php");
 <div class="col-10 table-responsive">
   <h1 class="mytitle"><?php echo ($this->_t) ?></h1>
 </div>
+<h1><?= $menu[0].$menu[1].$menu[2] ?></h1>
 <div class="col-10 table-responsive">
   <br>
-  <a href="/HMS_PROJECT/ajout_invoice" class="btn btn-secondary float-right"><i class="fas fa-hospital-user"></i> Patients</a>
-  <a href="/HMS_PROJECT/ajout_invoice" class="btn btn-info float-right"><i class="fas fa-user-md"></i> Medicin</a>
-  <a href="/HMS_PROJECT/ajout_invoice" class="btn btn-info float-right"><i class="fas fa-plus-square"></i></a>
+  <a href="/HMS_PROJECT/liste_invoice&user=patient" class="btn btn-secondary float-right"><i class="fas fa-hospital-user"></i> Patients</a>
+  <a href="/HMS_PROJECT/liste_invoice&user=doctor" class="btn btn-info float-right"><i class="fas fa-user-md"></i> Medicin</a>
+  <a href="/HMS_PROJECT/liste_invoice&user=date" class="btn btn-info float-right"><i class="fa-solid fa-calendar-days"></i>Rendez-Vous</a>
 
   <br>
   <table class="table table-bordered">
