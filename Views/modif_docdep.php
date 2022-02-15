@@ -6,7 +6,7 @@
             <div class="col">
                 <select name="id_doc">
                     <?php foreach($doctor as $do): ?>
-                        <option value="<?=$do->id()?>">Dr.<?= $do->prenom(); ?> <?= $do->nom(); ?></option>
+                        <option value="<?=$do->id()?>" <?php echo($doctor_departement->id_doc()==$do->id()? "selected":"");?>>Dr.<?= $do->prenom(); ?> <?= $do->nom(); ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -14,7 +14,7 @@
             <div class="col">
                 <select name="id_dep">
                 <?php foreach($departement as $de): ?>
-                        <option value="<?=$de->id()?>"><?= $de->nom_dep()?></option>
+                        <option value="<?=$de->id()?>" <?php echo($doctor_departement->id_dep()==$de->id()? "selected":"");?>><?= $de->nom_dep()?></option>
                     <?php endforeach; ?>
                 </select>
             </div>

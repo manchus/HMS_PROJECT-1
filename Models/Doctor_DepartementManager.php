@@ -43,6 +43,17 @@ class Doctor_DepartementManager extends Model
             return $this->addDocDep("doctor_departement","Doctor_Departement",$id_dep,$id_doc);
         }
     }
+  
+    public function getDoctorDepartamentDetail()
+    {
+        $this->getBdd();
+        if(isset($_GET["id"]))
+        {
+            $id = $_GET["id"];
+            return $this->details('doctor_departement','Doctor_Departement','id',$id);
+        }
+    }
+
     public function deleteDocDep()
     {
         $this->getBdd();
