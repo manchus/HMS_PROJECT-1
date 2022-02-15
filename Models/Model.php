@@ -115,6 +115,32 @@ Abstract class Model
         $query->closeCursor();
     }
 
+    public function getInvoiceListDetail($opt,$id)
+    {
+        $var = [];
+        //$sql = "SELECT  p.id, p.nom, p.prenom
+        $sql = "SELECT  p.id as id_p, p.nom as nom_p, p.prenom as prenom_p, d.id as id_d, d.nom as nom_d, d.prenom as prenom_d, a.id as id_rv, a.date_rendezvous as date_rv, a.id as n_rv, i.prix_rendezvous as prix_rv
+        FROM patient p, doctor d, appointment a, invoice i
+        WHERE a.id_patient = p.id AND a.id_medecin = d.id AND a.id = i.id_rendezvous AND ";
+
+        if($opt =="patient")
+            $sql = $sql." p.id = ".$id."; ";
+        if($opt =="doctor")
+            $sql = $sql." d.id = ".$id."; ";
+        if($opt =="date")
+            $sql = $sql." a.date_rendezvous = ".$id.";";
+           
+
+        $query = self::$_db->prepare($sql);
+        $query->execute();
+        while($data = $query->fetch(PDO::FETCH_ASSOC))
+        {
+            $var[] = new SummaryInvoice($data);
+        }
+        return $var;
+        $query->closeCursor();
+    }
+
     public function getListAppointments($table, $obj,$field,$way)
     {
         $var = [];

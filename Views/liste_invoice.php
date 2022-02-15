@@ -8,21 +8,24 @@ include("Public/sidebar.php");
 <div class="col-10 table-responsive">
   <h1 class="mytitle"><?php echo ($this->_t) ?></h1>
 </div>
-<h1><?= $menu[0].$menu[1].$menu[2] ?></h1>
 <div class="col-10 table-responsive">
   <br>
   <a href="/HMS_PROJECT/liste_invoice&user=patient" class="btn btn-secondary float-right"><i class="fas fa-hospital-user"></i> Patients</a>
   <a href="/HMS_PROJECT/liste_invoice&user=doctor" class="btn btn-info float-right"><i class="fas fa-user-md"></i> Medicin</a>
-  <a href="/HMS_PROJECT/liste_invoice&user=date" class="btn btn-info float-right"><i class="fa-solid fa-calendar-days"></i>Rendez-Vous</a>
+  <a href="/HMS_PROJECT/liste_invoice&user=date" class="btn btn-info float-right"><i class="fas fa-books-medical"></i>Rendez-Vous</a>
 
   <br>
   <table class="table table-bordered">
     <thead>
-      <tr class="table-primary">
-        <th scope="col">Patient</th>
-        <th scope="col">Medecin</th>
-        <th scope="col">Quantité rendez-vous</th>
-        <th scope="col">Prix rendez-vous</th>
+    <tr class="table-primary">
+        <th scope="col"><?= $menu[0] ?></th>
+        <th scope="col"><?= $menu[1] ?></th>
+        <th scope="col"><?= $menu[2] ?></th>
+        <?php
+          if ($user == "date") { ?>
+        <th scope="col"><?= $menu[4] ?></th>
+        <?php } ?>
+        <th scope="col"><?= $menu[3] ?></th>
         <th></th>
       </tr>
     </thead>
@@ -33,15 +36,32 @@ include("Public/sidebar.php");
     ?>
       <tbody>
         <tr>
-          <td><?= $d->nom_p()." ".$d->prenom_p() ?></td>
-          <td><?= $d->nom_d()." ".$d->prenom_d() ?></td>
+          <?php
+          if ($user == "doctor") { ?>
+            <td><?= $d->nom_d() . " " . $d->prenom_d() ?></td>
+            <td><?= $d->nom_p() . " " . $d->prenom_p() ?></td>
+
+          <?php } else { ?>
+            <td><?= $d->nom_p() . " " . $d->prenom_p() ?></td>
+            <td><?= $d->nom_d() . " " . $d->prenom_d() ?></td>
+          <?php } ?>
           <td><?= $d->n_rv() ?></td>
+          <?php
+          if ($user == "date") { ?>
+          <td><?= $d->date_rv() ?></td>
+          <?php } ?>
           <td><?= $d->prix_rv() ?></td>
           <td>
-            <a href="http://localhost/HMS_PROJECT/index.php?url=detail_invoice&id=<?= $d->id_p(); ?>" id="link" style="text-decoration:none;" id="link" style="text-decoration:none;"><i class="fas fa-info-circle"></i> </a>
-            <a href="http://localhost/HMS_PROJECT/index.php?url=delete_invoice&id=<?= $d->id_p(); ?>" id="link" style="text-decoration:none;" id="link" style="text-decoration:none;"><i class="fas fa-trash-alt"></i></a>
-            <a href="http://localhost/HMS_PROJECT/index.php?url=modif_invoice&id=<?= $d->id_p(); ?>" id="link" style="text-decoration:none;"><i class="fas fa-pen-square"></i></a>
-          </td>
+            <?php if($user =="doctor"){ ?>
+              <a href="http://localhost/HMS_PROJECT/index.php?url=detail_invoice&opt=<?= $user ?>&id=<?= $d->id_d(); ?>" id="link" style="text-decoration:none;" id="link" style="text-decoration:none;"><i class="fas fa-info-circle"></i> </a>
+            <?php } ?>
+            <?php if($user =="patient"){ ?>
+              <a href="http://localhost/HMS_PROJECT/index.php?url=detail_invoice&opt=<?= $user ?>&id=<?= $d->id_d(); ?>" id="link" style="text-decoration:none;" id="link" style="text-decoration:none;"><i class="fas fa-info-circle"></i> </a>
+            <?php } ?>
+            <?php if($user =="date"){ ?>
+              <a href="http://localhost/HMS_PROJECT/index.php?url=detail_invoice&opt=<?= $user ?>&id=<?= $d->date_rv(); ?>" id="link" style="text-decoration:none;" id="link" style="text-decoration:none;"><i class="fas fa-info-circle"></i> </a>
+            <?php } ?>
+           </td>
         </tr>
       </tbody>
 

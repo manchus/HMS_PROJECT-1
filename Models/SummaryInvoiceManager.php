@@ -26,7 +26,12 @@ class SummaryInvoiceManager extends Model
     }
 
 
-
+    public function getSummaryInvoiceDetail($order,$id )
+    {
+        $this->getBdd();
+        return $this->getInvoiceListDetail($order,$id);
+    }
+    
     public function deleteInvoice()
     {
         $this->getBdd();

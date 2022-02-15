@@ -5,52 +5,44 @@ class liste_invoiceController
 {
     private $_view;
     private $_manager;
-    
+
 
     public function __construct($url)
     {
-        if(isset($url) && $url && count($url) > 1)
-        {
+        if (isset($url) && $url && count($url) > 1) {
             throw new Exception('Page introuvable');
-        }
-        else
-        {
-            $this->linv();
+        } else {
+     //       $a = 1;
+     //       if (!isset($_POST["update"]))
+     //           $a = 2; //$this->getEmployeUpdate();
+     //       else
+                $this->linv();
         }
     }
 
     private function linv()
     {
-        if(isset($_GET["user"]))
-        {
+        if (isset($_GET["user"])) {
             $usr = $_GET["user"];
-        }
-        else
+        } else
             $usr = "patient";
-        
-        $this->_manager = new SummaryInvoiceManager;
-        if($usr == "patient")
-        {
-            $invo = $this->_manager->getSummaryInvoice("patient");
-            $menu =["Patient", "Medecin","Quantité rendez-vous","Prix rendez-vous"];
-    
-        }
-        if($usr == "doctor")
-        {
-            $invo = $this->_manager->getSummaryInvoice("doctor");
-            $menu =["Medecin", "Patient","Quantité rendez-vous","Prix rendez-vous"];
 
+        $this->_manager = new SummaryInvoiceManager;
+        if ($usr == "patient") {
+            $invo = $this->_manager->getSummaryInvoice("patient");
+            $menu = ["Patient", "Medecin", "Quantité rendez-vous", "Prix rendez-vous"];
         }
-            
-        if($usr == "date")
-        {
+        if ($usr == "doctor") {
+            $invo = $this->_manager->getSummaryInvoice("doctor");
+            $menu = ["Medecin", "Patient", "Quantité rendez-vous", "Prix rendez-vous"];
+        }
+
+        if ($usr == "date") {
             $invo = $this->_manager->getSummaryInvoice("date");
-            $menu =["Patient", "Medecin","Quantité rendez-vous","Prix rendez-vous"];
+            $menu = ["Patient", "Medecin", "Quantité rendez-vous", "Prix rendez-vous", "Date"];
         }
-            
-        
+
         $this->_view = new View('liste_invoice');
-        $this->_view->generate(array('invoice' => $invo, 'menu' => $menu));
+        $this->_view->generate(array('invoice' => $invo, 'menu' => $menu, 'user'=>$usr));
     }
 }
-?>

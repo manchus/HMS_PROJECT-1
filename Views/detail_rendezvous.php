@@ -1,28 +1,6 @@
 <?php
 $this->_t = "Détail du rendez-vous";
-
-try{
-    $pdo = new PDO("mysql:host=localhost;dbname=system_hopital;charset=utf8","root","");
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(PDOException $e){
-    die("ERROR: Could not connect. " . $e->getMessage());
-}
-
-    foreach($appointment as $d):
-        $sql1 = "SELECT nom,prenom FROM doctor WHERE id = ".$d->id_medecin().";";
-        $sql2 = "SELECT nom,prenom FROM patient WHERE id = ".$d->id_patient().";";
-        $sql3 = "SELECT * from doctor_departement inner join doctor inner join departement on (doctor.id = doctor_departement.id_doc)
-        and (departement.id = doctor_departement.id_doc) WHERE doctor.id = ".$d->id_medecin().";";
-        $stmt1 = $pdo->prepare($sql1);
-        $stmt2 = $pdo->prepare($sql2);
-        $stmt3 = $pdo->prepare($sql3);
-        $stmt1->execute();
-        $stmt2->execute();
-        $stmt3->execute();
-        $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
-        $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
-        $row3 = $stmt3->fetch(PDO::FETCH_ASSOC);
-        //var_dump($row3);
+       //var_dump($row3);
         ?>
         <style>
           .container{
@@ -43,22 +21,22 @@ try{
           <tbody>
             <tr>
                 <th>Nom complet du patient</th>
-                <td><?=$row2["nom"]?> <?=$row2["prenom"]?></td>
+                <td><?=$appointment->id_patient()?> </td>
             </tr>
             <tr>
                 <th>Nom complet du médecin</th>
-                <td>Dr. <?=$row1["nom"]?> <?=$row1["prenom"]?></td>
+                <td>Dr. <?=$appointment->id_medecin()?></td>
             </tr>
             <tr>
                 <th>Date du rendez-vous</th>
-                <td><?=$d->date_rendezvous()?></td>
+                <td><?=$appointment->date_rendezvous()?></td>
             </tr>
             <tr>
                 <th>Heure du rendez-vous</th>
-                <td><?=$d->heure_rendezvous()?></td>
+                <td><?=$appointment->heure_rendezvous()?></td>
             </tr>
             <?php
-                if(empty($row3))
+                if(1)
                 {
                     echo "<h4>Le lieu du rendez-vous n'est pas encore confirmé</h4>";
                 }
@@ -67,10 +45,10 @@ try{
                     ?>
                 <tr>
                 <th>Département</th>
-                <td><?=$row3["nom_dep"]?></td>
+                <td><?=$appointment->heure_rendezvous()?></td>
                 </tr></tr>
                 <th>Adresse</th>
-                <td><?=$row3["adresse"]?></td>
+                <td><?=$appointment->heure_rendezvous()?></td>
             </tr>
                     <?php
                 }
@@ -84,7 +62,3 @@ try{
             </div>
             <br>
             </div>
-        
-<?php
-    endforeach;
-?>
