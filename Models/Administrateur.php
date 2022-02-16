@@ -12,7 +12,7 @@ class Administrateur extends User
     {
         return $this->_cv;
     }
-    public function setCv($_photo)
+    public function setCv($_cv)
     {
         $this->_cv = $_cv;
     }
