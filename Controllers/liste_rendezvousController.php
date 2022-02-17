@@ -32,8 +32,8 @@ class liste_rendezvousController
             $docOld = $this->_manager->getSummaryUserAppointmentSummary("doctor","SummaryUserAppointment","id_medecin",0);
             $patOld = $this->_manager->getSummaryUserAppointmentSummary("patient","SummaryUserAppointment","id_patient",0);
             $this->_manager = new ListUserAppointmentManager;
-            $docNew = $this->_manager->getListUserAppointmentSummary("doctor","ListUserAppointment","id_medecin",1);
-            $patNew = $this->_manager->getListUserAppointmentSummary("patient","ListUserAppointment","id_patient",1);
+            $docNew = $this->_manager->getListUserAppointment("doctor","ListUserAppointment","id_medecin",1);
+            $patNew = $this->_manager->getListUserAppointment("patient","ListUserAppointment","id_patient",1);
     
             $this->_view = new View('liste_rendezvous');
             $this->_view->generate(array( 'doctor' => $docOld,'doctorN' => $docNew, 'patient'=>$patOld,'patientN'=>$patNew,'usr'=>$usr));
@@ -43,8 +43,8 @@ class liste_rendezvousController
             $docOld = $this->_manager->getSummaryUserAppointmentSummary("patient","SummaryUserAppointment","id_patient",0);
             $patOld = $this->_manager->getSummaryUserAppointmentSummary("patient","SummaryUserAppointment","id_patient",0);
             $this->_manager = new ListUserAppointmentManager;
-            $docNew = $this->_manager->getListUserAppointmentSummary("patient","ListUserAppointment","id_patient",1);
-            $patNew = $this->_manager->getListUserAppointmentSummary("patient","ListUserAppointment","id_patient",1);
+            $docNew = $this->_manager->getListUserAppointment("patient","ListUserAppointment","id_patient",1);
+            $patNew = $this->_manager->getListUserAppointment("patient","ListUserAppointment","id_patient",1);
     
             $this->_view = new View('liste_rendezvous');
             $this->_view->generate(array( 'doctor' => $docOld,'doctorN' => $docNew, 'patient'=>$patOld,'patientN'=>$patNew,'usr'=>$usr));
@@ -54,8 +54,8 @@ class liste_rendezvousController
             $docOld = $this->_manager->getSummaryUserAppointmentSummary("patient","SummaryUserAppointment","id_patient",0);
             $patOld = $this->_manager->getSummaryUserAppointmentSummary("patient","SummaryUserAppointment","id_patient",0);
             $this->_manager = new ListUserAppointmentManager;
-            $docNew = $this->_manager->getListUserAppointmentSummary("patient","ListUserAppointment","id_patient",1);
-            $patNew = $this->_manager->getListUserAppointmentSummary("patient","ListUserAppointment","id_patient",1);
+            $docNew = $this->_manager->getListUserAppointment("patient","ListUserAppointment","id_patient",1);
+            $patNew = $this->_manager->getListUserAppointment("patient","ListUserAppointment","id_patient",1);
     
             $this->_view = new View('liste_rendezvous');
             $this->_view->generate(array( 'doctor' => $docOld,'doctorN' => $docNew, 'patient'=>$patOld,'patientN'=>$patNew,'usr'=>$usr));

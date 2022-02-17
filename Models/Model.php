@@ -109,7 +109,7 @@ Abstract class Model
         $query->execute();
         while($data = $query->fetch(PDO::FETCH_ASSOC))
         {
-            $var[] = new SummaryInvoice($data);
+            $var[] = new SummaryAppointment($data);
         }
         return $var;
         $query->closeCursor();
@@ -135,7 +135,7 @@ Abstract class Model
         $query->execute();
         while($data = $query->fetch(PDO::FETCH_ASSOC))
         {
-            $var[] = new SummaryInvoice($data);
+            $var[] = new SummaryAppointment($data);
         }
         return $var;
         $query->closeCursor();

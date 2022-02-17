@@ -27,7 +27,7 @@ class liste_invoiceController
         } else
             $usr = "patient";
 
-        $this->_manager = new SummaryInvoiceManager;
+        $this->_manager = new SummaryAppointmentDetailManager;
         if ($usr == "patient") {
             $invo = $this->_manager->getSummaryInvoice("patient");
             $menu = ["Patient", "Medecin", "Quantité rendez-vous", "Prix rendez-vous"];

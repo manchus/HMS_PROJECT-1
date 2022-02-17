@@ -26,7 +26,7 @@ class Detail_invoiceController
         } else
             $usr = "patient";
 
-        $this->_manager = new SummaryInvoiceManager;
+        $this->_manager = new SummaryAppointmentManager;
         if ($usr == "patient") {
             $invo = $this->_manager->getSummaryInvoice("patient");
             $menu = ["Patient", "Medecin", "Quantité rendez-vous", "Prix rendez-vous"];
@@ -50,7 +50,7 @@ class Detail_invoiceController
         $usr = $_GET["opt"];
         $title = "";
      
-        $this->_manager = new SummaryInvoiceManager;
+        $this->_manager = new SummaryAppointmentManager;
         if ($usr == "patient") {
             $invo = $this->_manager->getSummaryInvoiceDetail($usr,$_GET["id"]);
             $menu = ["Patient", "Medecin", "Quantité rendez-vous", "Prix rendez-vous"];

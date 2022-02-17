@@ -2,7 +2,7 @@
 
 class ListUserAppointmentManager extends Model
 {
-    public function getListUserAppointmentSummary($table,$obj,$field,$way)
+    public function getListUserAppointment($table,$obj,$field,$way)
     {
         $this->getBdd();
         return $this->getListAppointments($table, $obj,$field,$way);
