@@ -43,17 +43,6 @@ class AppointmentManager extends Model
         $this->getBdd();
         return $this->getAll('appointment','Appointment');
     }
-    public function getPatient()
-    {
-        $this->getBdd();
-        return $this->getAll('patient','Patient');
-    }
-
-    public function getMedecin()
-    {
-        $this->getBdd();
-        return $this->getAll('doctor','Doctor');
-    }
 
     public function deleteRendezvous()
     {

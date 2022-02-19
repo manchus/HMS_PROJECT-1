@@ -20,12 +20,12 @@ class liste_rendezvousController
 
     private function pat()
     {
-        if(isset($_GET["user"]))
+        if(isset($_GET["qry"]))
         {
-            $usr = $_GET["user"];
+            $qry = $_GET["qry"];
         }
         else
-            $usr = "medicin";
+            $qry = "medicin";
         
         if(isset($_COOKIE["adminemail"])){
             $this->_manager = new SummaryUserAppointmentManager;
@@ -36,7 +36,7 @@ class liste_rendezvousController
             $patNew = $this->_manager->getListUserAppointment("patient","ListUserAppointment","id_patient",1);
     
             $this->_view = new View('liste_rendezvous');
-            $this->_view->generate(array( 'doctor' => $docOld,'doctorN' => $docNew, 'patient'=>$patOld,'patientN'=>$patNew,'usr'=>$usr));
+            $this->_view->generate(array( 'doctor' => $docOld,'doctorN' => $docNew, 'patient'=>$patOld,'patientN'=>$patNew,'qry'=>$qry));
         }
         if(isset($_COOKIE["patientemail"])){
             $this->_manager = new SummaryUserAppointmentManager;
@@ -47,7 +47,7 @@ class liste_rendezvousController
             $patNew = $this->_manager->getListUserAppointment("patient","ListUserAppointment","id_patient",1);
     
             $this->_view = new View('liste_rendezvous');
-            $this->_view->generate(array( 'doctor' => $docOld,'doctorN' => $docNew, 'patient'=>$patOld,'patientN'=>$patNew,'usr'=>$usr));
+            $this->_view->generate(array( 'doctor' => $docOld,'doctorN' => $docNew, 'patient'=>$patOld,'patientN'=>$patNew,'qry'=>$qry));
         }
         if(isset($_COOKIE["employeemail"])){
             $this->_manager = new SummaryUserAppointmentManager;
@@ -58,7 +58,7 @@ class liste_rendezvousController
             $patNew = $this->_manager->getListUserAppointment("patient","ListUserAppointment","id_patient",1);
     
             $this->_view = new View('liste_rendezvous');
-            $this->_view->generate(array( 'doctor' => $docOld,'doctorN' => $docNew, 'patient'=>$patOld,'patientN'=>$patNew,'usr'=>$usr));
+            $this->_view->generate(array( 'doctor' => $docOld,'doctorN' => $docNew, 'patient'=>$patOld,'patientN'=>$patNew,'qry'=>$qry));
         }
 
     }

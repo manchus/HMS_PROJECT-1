@@ -15,8 +15,9 @@ include("Public/sidebar.php");
   <?php if(isset($_COOKIE["adminemail"])){ ?>
 
   
-  <a href="/HMS_PROJECT/liste_rendezvous&user=patient" class="btn btn-secondary float-right"><i class="fas fa-hospital-user"></i> Patients</a>
-  <a href="/HMS_PROJECT/liste_rendezvous&user=medicin" class="btn btn-info float-right"><i class="fas fa-user-md"></i> Medicin</a>
+  <a href="/HMS_PROJECT/liste_rendezvous&qry=patient" class="btn btn-info float-right"><i class="fas fa-hospital-user"></i> Patients</a>
+  <a href="/HMS_PROJECT/liste_rendezvous&qry=medicin" class="btn btn-info float-right"><i class="fas fa-user-md"></i> Medicin</a>
+  <a href="/HMS_PROJECT/liste_rendezvous&qry=lieux" class="btn btn-info float-right"><i class="fas fa-hospitals"></i> Lieux</a>
   <br>
   <p class="h4">Ajouter rendez-vous
     <a href="/HMS_PROJECT/ajout_rendezvous" class="btn btn-info float-right"><i class="fas fa-plus-square"></i></a>
@@ -29,7 +30,7 @@ include("Public/sidebar.php");
     <thead>
       <tr class="table-primary">
         <?php
-        if ($usr == "medicin")
+        if ($qry == "medicin")
           echo ("<th scope='col'>Pris avec</th>");
 
         else //$_GET["user"]=="patient"
@@ -42,7 +43,7 @@ include("Public/sidebar.php");
       </tr>
     </thead>
     <?php
-    if ($usr == "medicin"){
+    if ($qry == "medicin"){
       foreach ($doctorN as $d) {
         ?>
           <tbody>
@@ -62,7 +63,7 @@ include("Public/sidebar.php");
           
     }
       
-      if ($usr == "patient")
+      if ($qry == "patient")
     foreach ($patientN as $d) {
     ?>
       <tbody>
@@ -87,9 +88,9 @@ include("Public/sidebar.php");
   <table class="table table-bordered">
     <thead>
       <tr class="table-primary">
-        <?php print_r($usr); ?>
+        <?php print_r($qry); ?>
         <?php
-        if ($usr == "medicin")
+        if ($qry == "medicin")
           echo ("<th scope='col'>Pris avec</th>");
 
         else 
@@ -102,7 +103,7 @@ include("Public/sidebar.php");
       </tr>
     </thead>
     <?php
-    if ($usr == "medicin"){
+    if ($qry == "medicin"){
       foreach ($doctor as $d) {
         ?>
           <tbody>
@@ -120,7 +121,7 @@ include("Public/sidebar.php");
           
     }
       
-      if ($usr == "patient")
+      if ($qry == "patient")
     foreach ($patient as $d) {
     ?>
       <tbody>

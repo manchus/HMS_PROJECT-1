@@ -63,19 +63,19 @@ Abstract class Model
         if(isset($_COOKIE["adminemail"]))
             $sql = "SELECT appointment.id, ".$table.".nom, ".$table.".prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment.".$field.") as _qte_rv 
             FROM appointment,".$table." WHERE appointment.".$field." = ".$table.".id 
-            AND appointment.date_rendezvous ".($way==0?"<":">=")." CURRENT_DATE() GROUP BY ".$field.";"; 
+            AND appointment.date_rendezvous ".($way==0?"<":">=")." CURRENT_DATE() GROUP BY ".$field." ORDER BY appointment.date_rendezvous ASC;"; 
         if(isset($_COOKIE["nurseemail"]))
             $sql = "SELECT appointment.id, ".$table.".nom, ".$table.".prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment.".$field.") as _qte_rv 
             FROM appointment,".$table." WHERE appointment.".$field." = ".$table.".id 
-            AND appointment.date_rendezvous ".($way==0?"<":">=")." CURRENT_DATE() GROUP BY ".$field.";"; 
+            AND appointment.date_rendezvous ".($way==0?"<":">=")." CURRENT_DATE() GROUP BY ".$field." ORDER BY appointment.date_rendezvous  ASC;"; 
         if(isset($_COOKIE["doctoremail"]))
             $sql = "SELECT appointment.id, ".$table.".nom, ".$table.".prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment.".$field.") as _qte_rv 
             FROM appointment,".$table." WHERE appointment.".$field." = ".$table.".id 
-            AND appointment.date_rendezvous ".($way==0?"<":">=")." CURRENT_DATE() GROUP BY ".$field.";"; 
+            AND appointment.date_rendezvous ".($way==0?"<":">=")." CURRENT_DATE() GROUP BY ".$field."  ORDER BY appointment.date_rendezvous  ASC;"; 
          if(isset($_COOKIE["patientemail"])){
             $sql = "SELECT appointment.id, ".$table.".nom, ".$table.".prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment.".$field.") as _qte_rv 
             FROM appointment,".$table." WHERE appointment.".$field." = ".$table.".id AND ".$table.".id = ".$_COOKIE["patientemail"]."
-            AND appointment.date_rendezvous ".($way==0?"<":">=")." CURRENT_DATE() GROUP BY ".$field.";"; 
+            AND appointment.date_rendezvous ".($way==0?"<":">=")." CURRENT_DATE() GROUP BY ".$field."  ASC;"; 
     
         }
        
@@ -219,11 +219,14 @@ Abstract class Model
 
         $query->closeCursor();
     }
+
     public function getdocdep($table1,$table2,$table3,$obj)
     {
         $var = [];
-        $sql = "SELECT * FROM ".$table1." inner join ".$table2." inner join ".$table3." on
-         (".$table2.".id = ".$table1.".id_doc) and (".$table3.".id = ".$table1.".id_dep);";
+        
+        $sql = "SELECT dd.id,dd.id_dep,dd.id_doc,dp.nom_dep,dp.specialite, dp.lieu, dp.adresse, dc.nom, dc.prenom  
+        FROM doctor_departement dd, doctor dc, departement dp
+        Where dd.id_dep = dp.id AND dd.id_doc = dc.id;";
         $query = self::$_db->prepare($sql);
         $query->execute();
         while($data = $query->fetch(PDO::FETCH_ASSOC))
@@ -234,6 +237,24 @@ Abstract class Model
         return $var;
         $query->closeCursor();
     }
+
+    public function getdoc_sans_dep($obj)
+    {
+        $var = [];
+        $sql = "SELECT * FROM doctor WHERE ID NOT IN (SELECT id_doc FROM `doctor_departement`);";
+        $query = self::$_db->prepare($sql);
+        $query->execute();
+        while($data = $query->fetch(PDO::FETCH_ASSOC))
+        {
+            $var[] = new $obj($data);
+            //var_dump($data);
+        }
+        return $var;
+        $query->closeCursor();
+    }
+
+
+
 
     
   public function addAppointment($table,$id_patient,$id_medecin,$date,$heure,$obj)

@@ -4,7 +4,9 @@ require_once('Views/View.php');
 class ajout_rendezvousController
 {
     private $_view;
-    private $_nursemanager;
+    private $_appmanager;
+    private $_patientmanager;
+    private $_depmanager;
 
     public function __construct($url)
     {
@@ -20,13 +22,18 @@ class ajout_rendezvousController
 
     private function rendezvous()
     {
-        $this->_nursemanager = new AppointmentManager;
-        $docs = $this->_nursemanager->addRendezvous();
-        $pat = $this->_nursemanager->getPatient();
-        $med = $this->_nursemanager->getMedecin();
+        $this->_appmanager = new AppointmentManager;
+        $apoint = $this->_appmanager->addRendezvous();
+        $this->_docmanager = new DoctorManager;
+        $med = $this->_docmanager->getDoctors();
+        $this->_patientmanager = new PatientManager;
+        $pat = $this->_patientmanager->getPatients();
+        $this->_depmanager = new DepartementManager;
+        $dep = $this->_depmanager->getDepartements();
+
 
         $this->_view = new View('ajout_rendezvous');
-        $this->_view->generate(array('rendezvous' => $docs,'patient'=>$pat,'medecin'=>$med));
+        $this->_view->generate(array('rendezvous' => $apoint,'patient'=>$pat,'medecin'=>$med,'depart'=>$dep));
     }
 }
 ?>

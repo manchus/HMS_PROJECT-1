@@ -1,37 +1,13 @@
 <?php
 
-class Doctor_DepartementManager extends Model
+class Doctor_DepartementDetailManager extends Model
 {
     public function getDD()
     {
         $this->getBdd();
-        return $this->getAll('doctor_departement','Doctor_Departement');
+        return $this->getdocdep('doctor_departement','doctor','departement','Doctor_DepartementDetail');
     }
-    public function DocDep()
-    {
-        $this->getBdd();
-        return $this->getdocdep('doctor_departement','doctor','departement','Doctor_Departement');        
-    }
-    public function Doc()
-    {
-        $this->getBdd();
-        return $this->getdocdep('doctor_departement','doctor','departement','Doctor');        
-    }
-    public function Dep()
-    {
-        $this->getBdd();
-        return $this->getdocdep('doctor_departement','doctor','departement','Departement');        
-    }
-    public function getDoc()
-    {
-        $this->getBdd();
-        return $this->getAll('doctor','Doctor');        
-    }
-    public function getDep()
-    {
-        $this->getBdd();
-        return $this->getAll('departement','Departement');        
-    }
+   
 
     public function add()
     {

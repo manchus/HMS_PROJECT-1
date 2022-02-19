@@ -5,6 +5,8 @@ class liste_docdepController
 {
     private $_view;
     private $_manager;
+    private $_docmanager;
+    private $_depmanager;
 
     public function __construct($url)
     {
@@ -20,10 +22,12 @@ class liste_docdepController
 
     private function docdep()
     {
-        $this->_manager = new Doctor_DepartementManager;
-        $docdep = $this->_manager->getDD();
-        $doc = $this->_manager->Doc();
-        $dep = $this->_manager->Dep();
+        $this->_manager = new Doctor_DepartementDetailManager;
+        $docdep = $this->_manager->getDD();   
+        $this->_docmanager = new DoctorManager;
+        $doc = $this->_docmanager->getDoctorSansDept();
+        $this->_depmanager = new DepartementManager;
+        $dep = $this->_depmanager->getDepartements();
 
         $this->_view = new View('liste_docdep');
         $this->_view->generate(array('doctor_departement' => $docdep, 'doctor' => $doc, 'departement' => $dep));

@@ -41,6 +41,12 @@ class DoctorManager extends Model
         $this->getBdd();
         return $this->details('doctor','Doctor','id',$id);
     }
+  
+    public function getDoctorSansDept()
+    {
+        $this->getBdd();
+        return $this->getdoc_sans_dep('Doctor');
+    }
     
     public function updatedoctor()
     {
