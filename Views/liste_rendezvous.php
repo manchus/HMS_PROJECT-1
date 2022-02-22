@@ -15,9 +15,9 @@ include("Public/sidebar.php");
   <?php if(isset($_COOKIE["adminemail"])){ ?>
 
   
-  <a href="/HMS_PROJECT/liste_rendezvous&qry=patient" class="btn btn-info float-right"><i class="fas fa-hospital-user"></i> Patients</a>
-  <a href="/HMS_PROJECT/liste_rendezvous&qry=medicin" class="btn btn-info float-right"><i class="fas fa-user-md"></i> Medicin</a>
-  <a href="/HMS_PROJECT/liste_rendezvous&qry=lieux" class="btn btn-info float-right"><i class="fas fa-hospitals"></i> Lieux</a>
+  <a href="/HMS_PROJECT/liste_rendezvous&qry=patient" class="btn <?= $qry=="patient"?"btn-primary":"btn-info"; ?> float-right"><i class="fas fa-hospital-user"></i> Patients</a>
+  <a href="/HMS_PROJECT/liste_rendezvous&qry=medicin" class="btn <?= $qry=="medicin"?"btn-primary":"btn-info"; ?> float-right"><i class="fas fa-user-md"></i> Medicin</a>
+  <a href="/HMS_PROJECT/liste_rendezvous&qry=lieux" class="btn <?= $qry=="lieux"?"btn-primary":"btn-info"; ?> float-right"><i class="fas fa-hospital"></i> Lieux</a>
   <br>
   <p class="h4">Ajouter rendez-vous
     <a href="/HMS_PROJECT/ajout_rendezvous" class="btn btn-info float-right"><i class="fas fa-plus-square"></i></a>

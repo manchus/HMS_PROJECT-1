@@ -22,27 +22,27 @@ class liste_invoiceController
 
     private function linv()
     {
-        if (isset($_GET["user"])) {
-            $usr = $_GET["user"];
+        if (isset($_GET["qry"])) {
+            $qry = $_GET["qry"];
         } else
-            $usr = "patient";
+            $qry = "patient";
 
         $this->_manager = new SummaryAppointmentDetailManager;
-        if ($usr == "patient") {
+        if ($qry == "patient") {
             $invo = $this->_manager->getSummaryInvoice("patient");
             $menu = ["Patient", "Medecin", "Quantité rendez-vous", "Prix rendez-vous"];
         }
-        if ($usr == "doctor") {
+        if ($qry == "doctor") {
             $invo = $this->_manager->getSummaryInvoice("doctor");
             $menu = ["Medecin", "Patient", "Quantité rendez-vous", "Prix rendez-vous"];
         }
 
-        if ($usr == "date") {
+        if ($qry == "date") {
             $invo = $this->_manager->getSummaryInvoice("date");
             $menu = ["Patient", "Medecin", "Quantité rendez-vous", "Prix rendez-vous", "Date"];
         }
 
         $this->_view = new View('liste_invoice');
-        $this->_view->generate(array('invoice' => $invo, 'menu' => $menu, 'user'=>$usr));
+        $this->_view->generate(array('invoice' => $invo, 'menu' => $menu, 'qry'=>$qry));
     }
 }

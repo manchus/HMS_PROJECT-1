@@ -10,9 +10,9 @@ include("Public/sidebar.php");
 </div>
 <div class="col-10 table-responsive">
   <br>
-  <a href="/HMS_PROJECT/liste_invoice&user=patient" class="btn btn-secondary float-right"><i class="fas fa-hospital-user"></i> Patients</a>
-  <a href="/HMS_PROJECT/liste_invoice&user=doctor" class="btn btn-info float-right"><i class="fas fa-user-md"></i> Medicin</a>
-  <a href="/HMS_PROJECT/liste_invoice&user=date" class="btn btn-info float-right"><i class="fas fa-books-medical"></i>Rendez-Vous</a>
+  <a href="/HMS_PROJECT/liste_invoice&qry=patient" class="btn <?= $qry=="patient"?"btn-primary":"btn-info"; ?> float-right"><i class="fas fa-hospital-user"></i> Patients</a>
+  <a href="/HMS_PROJECT/liste_invoice&qry=doctor" class="btn <?= $qry=="doctor"?"btn-primary":"btn-info"; ?> float-right"><i class="fas fa-user-md"></i> Medicin</a>
+  <a href="/HMS_PROJECT/liste_invoice&qry=date" class="btn <?= $qry=="date"?"btn-primary":"btn-info"; ?> float-right"><i class="fas fa-calendar-alt"></i></i> Mois</a>
 
   <br>
   <table class="table table-bordered">
@@ -22,7 +22,7 @@ include("Public/sidebar.php");
         <th scope="col"><?= $menu[1] ?></th>
         <th scope="col"><?= $menu[2] ?></th>
         <?php
-          if ($user == "date") { ?>
+          if ($qry == "date") { ?>
         <th scope="col"><?= $menu[4] ?></th>
         <?php } ?>
         <th scope="col"><?= $menu[3] ?></th>
@@ -37,7 +37,7 @@ include("Public/sidebar.php");
       <tbody>
         <tr>
           <?php
-          if ($user == "doctor") { ?>
+          if ($qry == "doctor") { ?>
             <td><?= $d->nom_d() . " " . $d->prenom_d() ?></td>
             <td><?= $d->nom_p() . " " . $d->prenom_p() ?></td>
 
@@ -47,27 +47,32 @@ include("Public/sidebar.php");
           <?php } ?>
           <td><?= $d->n_rv() ?></td>
           <?php
-          if ($user == "date") { ?>
+          if ($qry == "date") { ?>
           <td><?= $d->date_rv() ?></td>
           <?php } ?>
           <td><?= $d->prix_rv() ?></td>
           <td>
-            <?php if($user =="doctor"){ ?>
-              <a href="http://localhost/HMS_PROJECT/index.php?url=detail_invoice&opt=<?= $user ?>&id=<?= $d->id_d(); ?>" id="link" style="text-decoration:none;" id="link" style="text-decoration:none;"><i class="fas fa-info-circle"></i> </a>
+            <?php if($qry =="doctor"){ ?>
+              <a href="http://localhost/HMS_PROJECT/index.php?url=detail_invoice&opt=<?= $qry ?>&id=<?= $d->id_d(); ?>" id="link" style="text-decoration:none;" id="link" style="text-decoration:none;"><i class="fas fa-info-circle"></i> </a>
             <?php } ?>
-            <?php if($user =="patient"){ ?>
-              <a href="http://localhost/HMS_PROJECT/index.php?url=detail_invoice&opt=<?= $user ?>&id=<?= $d->id_d(); ?>" id="link" style="text-decoration:none;" id="link" style="text-decoration:none;"><i class="fas fa-info-circle"></i> </a>
+            <?php if($qry =="patient"){ ?>
+              <a href="http://localhost/HMS_PROJECT/index.php?url=detail_invoice&opt=<?= $qry ?>&id=<?= $d->id_d(); ?>" id="link" style="text-decoration:none;" id="link" style="text-decoration:none;"><i class="fas fa-info-circle"></i> </a>
             <?php } ?>
-            <?php if($user =="date"){ ?>
-              <a href="http://localhost/HMS_PROJECT/index.php?url=detail_invoice&opt=<?= $user ?>&id=<?= $d->date_rv(); ?>" id="link" style="text-decoration:none;" id="link" style="text-decoration:none;"><i class="fas fa-info-circle"></i> </a>
+            <?php if($qry =="date"){ ?>
+              <a href="http://localhost/HMS_PROJECT/index.php?url=detail_invoice&opt=<?= $qry ?>&id=<?= $d->date_rv(); ?>" id="link" style="text-decoration:none;" id="link" style="text-decoration:none;"><i class="fas fa-info-circle"></i> </a>
             <?php } ?>
            </td>
         </tr>
       </tbody>
-
-
     <?php
     }
     ?>
   </table>
+  <?php 
+      $total = 0;
+      foreach ($invoice as $d) {
+        $total+= $d->prix_rv();
+      }
+  ?>
+  <h4 style='text-align:right' >Total Invoice :<?= $total ?>  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;</h4>
 </div>

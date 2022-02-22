@@ -22,7 +22,7 @@ class liste_patientController
     {
         $this->_manager = new PatientManager;
         $dep = $this->_manager->getPatients();
-
+var_dump($_COOKIE);
         $this->_view = new View('liste_patient');
         $this->_view->generate(array('patient' => $dep));
     }

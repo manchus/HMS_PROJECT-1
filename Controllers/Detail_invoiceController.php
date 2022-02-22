@@ -28,16 +28,16 @@ class Detail_invoiceController
 
         $this->_manager = new SummaryAppointmentManager;
         if ($usr == "patient") {
-            $invo = $this->_manager->getSummaryInvoice("patient");
+            $invo = $this->_manager->getSummaryInvoiceDetail("patient",$_GET["id"]);
             $menu = ["Patient", "Medecin", "Quantité rendez-vous", "Prix rendez-vous"];
         }
         if ($usr == "doctor") {
-            $invo = $this->_manager->getSummaryInvoice("doctor");
+            $invo = $this->_manager->getSummaryInvoiceDetail("doctor",$_GET["id"]);
             $menu = ["Medecin", "Patient", "Quantité rendez-vous", "Prix rendez-vous"];
         }
 
         if ($usr == "date") {
-            $invo = $this->_manager->getSummaryInvoice("date");
+            $invo = $this->_manager->getSummaryInvoiceDetail("date",$_GET["id"]);
             $menu = ["Patient", "Medecin", "Quantité rendez-vous", "Prix rendez-vous"];
         }
 

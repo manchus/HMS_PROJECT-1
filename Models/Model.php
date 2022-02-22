@@ -21,25 +21,34 @@ Abstract class Model
     }
 
     public function login($table,$obj,$email,$mdp,$link,$cookie)
-    {        
-        $sql = "SELECT id,nom,prenom FROM ".$table." where email = '".$email."' and mdp='".$mdp."';";
+    {       
+        $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
+        //$sql = "SELECT id,nom,prenom FROM ".$table." where email = '".$email."' and mdp='".$mdp."';";
+        $sql = "SELECT id,nom,prenom,mdp FROM ".$table." where email = '".$email."';";
         $query = self::$_db->prepare($sql);
         $data = $query->fetch(PDO::FETCH_ASSOC);
         $query->execute();
         $count = $query->rowCount();
         if($count>0)
         {
+
             $result = $query->fetchAll();
-            echo "<script>document.location.href='/HMS_PROJECT/".$link."'</script>";   
-            setcookie($cookie,$result[0]["id"], time()+3600*24);
-            setcookie('nom',$result[0]["nom"], time()+3600*24);
-            setcookie('prenom',$result[0]["prenom"], time()+3600*24);
-            //setcookie("logged_user",$obj, time()+3600*24);                 
-            return new $obj($data);
+            if (password_verify($mdp, $result[0]["mdp"])){
+                echo "<script>document.location.href='/HMS_PROJECT/".$link."'</script>";   
+                setcookie($cookie,$result[0]["id"], time()+3600*24);
+                setcookie('nom',$result[0]["nom"], time()+3600*24);
+                setcookie('prenom',$result[0]["prenom"], time()+3600*24);
+                setcookie('mdp',$mdp_hash,time()+3600);
+                //setcookie("logged_user",$obj, time()+3600*24);                 
+                return new $obj($data);
+            }
+            else
+            echo "<script>alert('Votre mot de passe sont incorrecte');</script>";
+           
         }
         else
         {
-            echo "<script>alert('Votre email ou votre mot de passe sont incorrecte');</script>";
+            echo "<script>alert('Votre email de passe sont incorrecte');</script>";
         }
         $query->closeCursor();
     } 
@@ -98,12 +107,11 @@ Abstract class Model
         WHERE a.id_patient = p.id AND a.id_medecin = d.id AND a.id = i.id_rendezvous GROUP BY ";
 
         if($opt =="patient")
-            $sql = $sql."p.id, d.id; ";
+            $sql = $sql."p.id; ";
         if($opt =="doctor")
-            $sql = $sql."d.id, p.id; ";
+            $sql = $sql."d.id; ";
         if($opt =="date")
-            $sql = $sql."a.date_rendezvous, p.id;";
-           
+            $sql = $sql."date_format(a.date_rendezvous,'%Y-%m');";
 
         $query = self::$_db->prepare($sql);
         $query->execute();
@@ -191,9 +199,9 @@ Abstract class Model
     {
         $sql = "insert into ".$table." (nom,prenom,date_naissance,photo,email,adresse,code_postal,ville,province,telephone,cv,mdp) 
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
-
-        $query = self::$_db->prepare($sql);
-        $query->execute([$nom,$prenom,$ddn,$photo,$email,$adresse,$code,$ville,$province,$telephone,$cv,$mdp]);
+        $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT, array("cost"=>10));
+              $query = self::$_db->prepare($sql);
+        $query->execute([$nom,$prenom,$ddn,$photo,$email,$adresse,$code,$ville,$province,$telephone,$cv,$mdp_hash]);
         
         $data = array("nom" => $nom, "prenom" => $prenom, "date_naissance" => $ddn,
          "email" => $email, "adresse" => $adresse, "code_postal" => $code,
@@ -385,9 +393,9 @@ Abstract class Model
     {
         $sql = "insert into ".$table." (nom,prenom,date_naissance,email,adresse,code_postal,ville,province,telephone,description,mdp) 
         VALUES (?,?,?,?,?,?,?,?,?,?,?);";
-
+        $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT, array("cost"=>10));
         $query = self::$_db->prepare($sql);
-        $query->execute([$nom,$prenom,$ddn,$email,$adresse,$code,$ville,$province,$telephone,$description,$mdp]);
+        $query->execute([$nom,$prenom,$ddn,$email,$adresse,$code,$ville,$province,$telephone,$description,$mdp_hash]);
         
         $data = array("nom" => $nom, "prenom" => $prenom, "date_naissance" => $ddn,
          "email" => $email, "adresse" => $adresse, "code_postal" => $code,
@@ -422,9 +430,9 @@ Abstract class Model
     {
         $sql = "insert into ".$table." (nom,prenom,date_naissance,fonction,photo,email,adresse,code_postal,ville,province,telephone,cv,mdp) 
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);";
-
+        $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT, array("cost"=>10));
         $query = self::$_db->prepare($sql);
-        $query->execute([$nom,$prenom,$ddn,$fonction,$photo,$email,$adresse,$code,$ville,$province,$telephone,$cv,$mdp]);
+        $query->execute([$nom,$prenom,$ddn,$fonction,$photo,$email,$adresse,$code,$ville,$province,$telephone,$cv,$mdp_hash]);
         
         $data = array("nom" => $nom, "prenom" => $prenom, "date_naissance" => $ddn,
          "email" => $email,"fonction" => $fonction, "adresse" => $adresse, "code_postal" => $code,
