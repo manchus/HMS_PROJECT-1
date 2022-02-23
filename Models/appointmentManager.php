@@ -2,17 +2,7 @@
 
 class AppointmentManager extends Model
 {
-    /*public function takeAppointment()
-    {
-        $this->getBdd();
-        if(isset($_POST["take"]) && !empty($_POST))
-        {
-            $id_medecin = $_POST["id_medecin"];
-            $date = $_POST["date"];
-            $heure = $_POST["heure"];
-            return $this->addAppointment("appointment","Appointment",3,$id_medecin,$date,$heure);
-        }
-    }*/
+
     public function getAppointment()
     {
         $this->getBdd();
@@ -58,11 +48,17 @@ class AppointmentManager extends Model
         $this->getBdd();
         if(isset($_POST["add"]) && !empty($_POST))
         {
-            
-            echo "<script>window.location.href = '/HMS_PROJECT/liste_rendezvous';</script>";
-            return $this->addAppointment('appointment',$_POST["id_patient"],$_POST["id_medecin"],
-            $_POST["date_rendezvous"],$_POST["heure_rendezvous"],'Appointment');
-
+            $verify =$this->verifyAppointment('appointment',$_POST["id_patient"],$_POST["id_medecin"],
+            $_POST["date_rendezvous"],$_POST["heure_rendezvous"]);
+            if(strlen($verify)>0)
+                echo "<script>alert('".$verify."');</script>";
+            else
+            {
+                echo "<script>window.location.href = '/HMS_PROJECT/liste_rendezvous';</script>";
+                return $this->addAppointment('appointment',$_POST["id_patient"],$_POST["id_medecin"],
+                $_POST["date_rendezvous"],$_POST["heure_rendezvous"],'Appointment');
+            }
+           
         }
     }
 
