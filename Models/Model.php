@@ -36,7 +36,7 @@ abstract class Model
                 setcookie($cookie, $result[0]["id"], time() + 3600 * 24);
                 setcookie('nom', $result[0]["nom"], time() + 3600 * 24);
                 setcookie('prenom', $result[0]["prenom"], time() + 3600 * 24);
-                setcookie('mdp', $mdp_hash, time() + 3600);
+                setcookie('TypeUser', $table, time() + 3600);
                 //setcookie("logged_user",$obj, time()+3600*24);                 
                 return new $obj($data);
             } else
@@ -70,14 +70,18 @@ abstract class Model
             $sql = "SELECT appointment.id, " . $table . ".nom, " . $table . ".prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment." . $field . ") as _qte_rv 
             FROM appointment," . $table . " WHERE appointment." . $field . " = " . $table . ".id 
             AND appointment.date_rendezvous " . ($way == 0 ? "<" : ">=") . " CURRENT_DATE() GROUP BY " . $field . " ORDER BY appointment.date_rendezvous  ASC;";
-        if (isset($_COOKIE["doctoremail"]))
+        if (isset($_COOKIE["doctoremail"])) {
+
             $sql = "SELECT appointment.id, " . $table . ".nom, " . $table . ".prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment." . $field . ") as _qte_rv 
-            FROM appointment," . $table . " WHERE appointment." . $field . " = " . $table . ".id 
+            FROM appointment," . $table . " WHERE appointment." . $field . " = " . $table . ".id AND " . $table . ".id = " . $_COOKIE["doctoremail"] . "
             AND appointment.date_rendezvous " . ($way == 0 ? "<" : ">=") . " CURRENT_DATE() GROUP BY " . $field . "  ORDER BY appointment.date_rendezvous  ASC;";
+        }
+
         if (isset($_COOKIE["patientemail"])) {
             $sql = "SELECT appointment.id, " . $table . ".nom, " . $table . ".prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment." . $field . ") as _qte_rv 
             FROM appointment," . $table . " WHERE appointment." . $field . " = " . $table . ".id AND " . $table . ".id = " . $_COOKIE["patientemail"] . "
             AND appointment.date_rendezvous " . ($way == 0 ? "<" : ">=") . " CURRENT_DATE() GROUP BY " . $field . "  ASC;";
+            var_dump($sql);
         }
 
         $query = self::$_db->prepare($sql);
@@ -96,6 +100,12 @@ abstract class Model
         $sql = "SELECT  p.id as id_p, p.nom as nom_p, p.prenom as prenom_p, d.id as id_d, d.nom as nom_d, d.prenom as prenom_d, a.id as id_rv, a.date_rendezvous as date_rv, count(a.id) as n_rv, sum(i.prix_rendezvous) as prix_rv
         FROM patient p, doctor d, appointment a, invoice i
         WHERE a.id_patient = p.id AND a.id_medecin = d.id AND a.id = i.id_rendezvous GROUP BY ";
+
+        if (isset($_COOKIE["patientemail"])) {
+            $sql = "SELECT  p.id as id_p, p.nom as nom_p, p.prenom as prenom_p, d.id as id_d, d.nom as nom_d, d.prenom as prenom_d, a.id as id_rv, a.date_rendezvous as date_rv, count(a.id) as n_rv, sum(i.prix_rendezvous) as prix_rv
+            FROM patient p, doctor d, appointment a, invoice i
+            WHERE a.id_patient = p.id AND a.id_medecin = d.id AND a.id = i.id_rendezvous AND p.id = " . $_COOKIE["patientemail"] . " GROUP BY ";
+        }
 
         if ($opt == "patient")
             $sql = $sql . "p.id; ";
@@ -141,10 +151,31 @@ abstract class Model
     public function getListAppointments($table, $obj, $field, $way)
     {
         $var = [];
-        //$sql = "SELECT ".$field." as id, COUNT(".$field.") as _qte_rv FROM ".$table." GROUP BY ".$field.";";
-        $sql = "SELECT appointment.id, " . $table . ".nom, " . $table . ".prenom, appointment.date_rendezvous,  appointment.heure_rendezvous
-        FROM appointment," . $table . " WHERE appointment." . $field . " = " . $table . ".id 
-        AND appointment.date_rendezvous " . ($way == 0 ? "<" : ">=") . " CURRENT_DATE();";
+
+        if (isset($_COOKIE["adminemail"]))
+            $sql = "SELECT appointment.id, " . $table . ".nom, " . $table . ".prenom, appointment.date_rendezvous,  appointment.heure_rendezvous
+            FROM appointment," . $table . " WHERE appointment." . $field . " = " . $table . ".id
+            AND appointment.date_rendezvous " . ($way == 0 ? "<" : ">=") . " CURRENT_DATE();";
+        if (isset($_COOKIE["nurseemail"]))
+            $sql = "SELECT appointment.id, " . $table . ".nom, " . $table . ".prenom, appointment.date_rendezvous,  appointment.heure_rendezvous
+            FROM appointment," . $table . " WHERE appointment." . $field . " = " . $table . ".id
+            AND appointment.date_rendezvous " . ($way == 0 ? "<" : ">=") . " CURRENT_DATE();";
+
+        if (isset($_COOKIE["doctoremail"]))
+            $sql = "SELECT appointment.id, patient.nom, patient.prenom, appointment.date_rendezvous,  appointment.heure_rendezvous
+            FROM appointment, doctor, patient WHERE appointment.id_medecin = doctor.id AND doctor.id = " . $_COOKIE["doctoremail"] ." AND appointment.id_patient = patient.id 
+            AND appointment.date_rendezvous " . ($way == 0 ? "<" : ">=") . " CURRENT_DATE();";
+        if (isset($_COOKIE["patientemail"])) {
+            $sql = "SELECT appointment.id, " . $table . ".nom, " . $table . ".prenom, appointment.date_rendezvous,  appointment.heure_rendezvous
+            FROM appointment," . $table . " WHERE appointment." . $field . " = " . $table . ".id AND " . $table . ".id = " . $_COOKIE["patientemail"] . "
+            AND appointment.date_rendezvous " . ($way == 0 ? "<" : ">=") . " CURRENT_DATE();";
+        }
+
+        var_dump($sql);
+
+
+
+
         $query = self::$_db->prepare($sql);
         $query->execute();
         while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
@@ -185,6 +216,25 @@ abstract class Model
 
         $query->closeCursor();
     }
+
+    public function verifyUser($table, $email)
+    {
+        $sql = "select * from " . $table . "  WHERE email = '" . $email . "';";
+        $query = self::$_db->prepare($sql);
+        $data = $query->fetch(PDO::FETCH_ASSOC);
+        $query->execute();
+        $count = $query->rowCount();
+        if ($count > 0) {
+            return "L'e-mail saisi existe déjà dans le système, veuillez en saisir un autre ou contacter un administrateur";
+        }
+        return "";
+    }
+
+
+
+
+
+
     public function addDoctors($table, $nom, $prenom, $ddn, $photo, $email, $adresse, $code, $ville, $province, $telephone, $cv, $mdp, $obj)
     {
         $sql = "insert into " . $table . " (nom,prenom,date_naissance,photo,email,adresse,code_postal,ville,province,telephone,cv,mdp) 

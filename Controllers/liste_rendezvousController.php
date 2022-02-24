@@ -25,41 +25,47 @@ class liste_rendezvousController
             $qry = $_GET["qry"];
         }
         else
-            $qry = "medicin";
+            $qry = "patient";
+        $field = $qry=="patient"?"id_patient":"id_medecin";
         
         if(isset($_COOKIE["adminemail"])){
             $this->_manager = new SummaryUserAppointmentManager;
-            $docOld = $this->_manager->getSummaryUserAppointmentSummary("doctor","SummaryUserAppointment","id_medecin",0);
-            $patOld = $this->_manager->getSummaryUserAppointmentSummary("patient","SummaryUserAppointment","id_patient",0);
+            $old = $this->_manager->getSummaryUserAppointmentSummary($qry,"SummaryUserAppointment",$field,0);
             $this->_manager = new ListUserAppointmentManager;
-            $docNew = $this->_manager->getListUserAppointment("doctor","ListUserAppointment","id_medecin",1);
-            $patNew = $this->_manager->getListUserAppointment("patient","ListUserAppointment","id_patient",1);
+            $new = $this->_manager->getListUserAppointment($qry,"ListUserAppointment",$field,1);
     
             $this->_view = new View('liste_rendezvous');
-            $this->_view->generate(array( 'doctor' => $docOld,'doctorN' => $docNew, 'patient'=>$patOld,'patientN'=>$patNew,'qry'=>$qry));
+            $this->_view->generate(array(  'oldApp'=>$old,'newApp'=>$new,'qry'=>$qry));
         }
         if(isset($_COOKIE["patientemail"])){
             $this->_manager = new SummaryUserAppointmentManager;
-            $docOld = $this->_manager->getSummaryUserAppointmentSummary("patient","SummaryUserAppointment","id_patient",0);
-            $patOld = $this->_manager->getSummaryUserAppointmentSummary("patient","SummaryUserAppointment","id_patient",0);
+            $old = $this->_manager->getSummaryUserAppointmentSummary($qry,"SummaryUserAppointment",$field,0);
             $this->_manager = new ListUserAppointmentManager;
-            $docNew = $this->_manager->getListUserAppointment("patient","ListUserAppointment","id_patient",1);
-            $patNew = $this->_manager->getListUserAppointment("patient","ListUserAppointment","id_patient",1);
+            $new = $this->_manager->getListUserAppointment($qry,"ListUserAppointment",$field,1);
     
             $this->_view = new View('liste_rendezvous');
-            $this->_view->generate(array( 'doctor' => $docOld,'doctorN' => $docNew, 'patient'=>$patOld,'patientN'=>$patNew,'qry'=>$qry));
-        }
+            $this->_view->generate(array(  'oldApp'=>$old,'newApp'=>$new,'qry'=>$qry));
+            }
+            
+        if(isset($_COOKIE["doctoremail"])){
+            $this->_manager = new SummaryUserAppointmentManager;
+            $old = $this->_manager->getSummaryUserAppointmentSummary($qry,"SummaryUserAppointment",$field,0);
+            $this->_manager = new ListUserAppointmentManager;
+            $new = $this->_manager->getListUserAppointment($qry,"ListUserAppointment",$field,1);
+    
+            $this->_view = new View('liste_rendezvous');
+            $this->_view->generate(array(  'oldApp'=>$old,'newApp'=>$new,'qry'=>$qry));
+            }
+            
         if(isset($_COOKIE["employeemail"])){
             $this->_manager = new SummaryUserAppointmentManager;
-            $docOld = $this->_manager->getSummaryUserAppointmentSummary("patient","SummaryUserAppointment","id_patient",0);
-            $patOld = $this->_manager->getSummaryUserAppointmentSummary("patient","SummaryUserAppointment","id_patient",0);
+            $old = $this->_manager->getSummaryUserAppointmentSummary($qry,"SummaryUserAppointment",$field,0);
             $this->_manager = new ListUserAppointmentManager;
-            $docNew = $this->_manager->getListUserAppointment("patient","ListUserAppointment","id_patient",1);
-            $patNew = $this->_manager->getListUserAppointment("patient","ListUserAppointment","id_patient",1);
+            $new = $this->_manager->getListUserAppointment($qry,"ListUserAppointment",$field,1);
     
             $this->_view = new View('liste_rendezvous');
-            $this->_view->generate(array( 'doctor' => $docOld,'doctorN' => $docNew, 'patient'=>$patOld,'patientN'=>$patNew,'qry'=>$qry));
-        }
+            $this->_view->generate(array(  'oldApp'=>$old,'newApp'=>$new,'qry'=>$qry));
+            }
 
     }
 

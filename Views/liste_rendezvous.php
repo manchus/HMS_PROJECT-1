@@ -16,7 +16,7 @@ include("Public/sidebar.php");
 
   
   <a href="/HMS_PROJECT/liste_rendezvous&qry=patient" class="btn <?= $qry=="patient"?"btn-primary":"btn-info"; ?> float-right"><i class="fas fa-hospital-user"></i> Patients</a>
-  <a href="/HMS_PROJECT/liste_rendezvous&qry=medicin" class="btn <?= $qry=="medicin"?"btn-primary":"btn-info"; ?> float-right"><i class="fas fa-user-md"></i> Medicin</a>
+  <a href="/HMS_PROJECT/liste_rendezvous&qry=doctor" class="btn <?= $qry=="doctor"?"btn-primary":"btn-info"; ?> float-right"><i class="fas fa-user-md"></i> Medicin</a>
   <a href="/HMS_PROJECT/liste_rendezvous&qry=lieux" class="btn <?= $qry=="lieux"?"btn-primary":"btn-info"; ?> float-right"><i class="fas fa-hospital"></i> Lieux</a>
   <br>
   <p class="h4">Ajouter rendez-vous
@@ -30,7 +30,7 @@ include("Public/sidebar.php");
     <thead>
       <tr class="table-primary">
         <?php
-        if ($qry == "medicin")
+        if ($qry == "doctor")
           echo ("<th scope='col'>Pris avec</th>");
 
         else //$_GET["user"]=="patient"
@@ -43,8 +43,8 @@ include("Public/sidebar.php");
       </tr>
     </thead>
     <?php
-    if ($qry == "medicin"){
-      foreach ($doctorN as $d) {
+    if ($qry == "doctor"){
+      foreach ($newApp as $d) {
         ?>
           <tbody>
             <tr>
@@ -64,7 +64,7 @@ include("Public/sidebar.php");
     }
       
       if ($qry == "patient")
-    foreach ($patientN as $d) {
+    foreach ($newApp as $d) {
     ?>
       <tbody>
         <tr>
@@ -90,7 +90,7 @@ include("Public/sidebar.php");
       <tr class="table-primary">
         <?php print_r($qry); ?>
         <?php
-        if ($qry == "medicin")
+        if ($qry == "doctor")
           echo ("<th scope='col'>Pris avec</th>");
 
         else 
@@ -103,8 +103,8 @@ include("Public/sidebar.php");
       </tr>
     </thead>
     <?php
-    if ($qry == "medicin"){
-      foreach ($doctor as $d) {
+    if ($qry == "doctor"){
+      foreach ($oldApp as $d) {
         ?>
           <tbody>
             <tr>
@@ -122,7 +122,7 @@ include("Public/sidebar.php");
     }
       
       if ($qry == "patient")
-    foreach ($patient as $d) {
+    foreach ($oldApp as $d) {
     ?>
       <tbody>
         <tr>

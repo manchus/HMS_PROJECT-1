@@ -4,7 +4,9 @@
 <div class="container">
 	<div class="row login_box">
         <div class="col-md-12 col-xs-12 login_control">
-                
+               <div class="h4">
+                    <?=$this->_usr?>
+               </div> 
                 <div class="control">
                     <div class="label">Adresse Email</div>
                     <input type="email" class="form-control" name="email" required/>

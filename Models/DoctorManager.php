@@ -84,14 +84,19 @@ class DoctorManager extends Model
         $this->getBdd();
         if(isset($_POST["add"]) && !empty($_POST))
         {
+
+            $verify =$this->verifyUser('doctor',$_POST["email"]);
+            if(strlen($verify)>0)
+                echo "<script>alert('".$verify."');</script>";
+            else
+            {
             echo "<script>window.location.href = '/HMS_PROJECT/liste_medecin';</script>";
             return $this->addDoctors('doctor',$_POST["nom"],
             $_POST["prenom"],$_POST["ddn"],$_FILES['photo']['name'],
             $_POST["email"],$_POST["adresse"],$_POST["code_postal"],
             $_POST["ville"],$_POST["province"],$_POST["telephone"],
             $_FILES['cv']['name'],$_POST["mdp"],'Doctor');
+        } 
         }
     }
 }
-
-?>

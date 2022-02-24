@@ -9,6 +9,7 @@ class LoginController
     private $_employemanager;
     private $_nursemanager;
     private $_doctormanager;
+    private $typeUser;
 
     public function __construct($url)
     {
@@ -24,18 +25,23 @@ class LoginController
             {
                 if($_GET["tusr"]=="patient"){
                     $this->loginPatients();
+                    $this->typeUser = "Patient";
                 }
                 else if($_GET["tusr"]=="admin"){
                     $this->loginAdmins();
+                    $this->typeUser = "Administrateur";
                 }
                 else if($_GET["tusr"]=="employee"){
                     $this->loginEmployee();
+                    $this->typeUser = "Employer";
                 }
                 else if($_GET["tusr"]=="doctor"){
                     $this->loginDoctor();
+                    $this->typeUser = "Médecin";
                 }
                 else if($_GET["tusr"]=="nurse"){
                     $this->loginNurse();
+                    $this->typeUser = "Infermier";
                 }
             
     
