@@ -38,6 +38,7 @@ class DoctorManager extends Model
 
     public function getDoctorDetailId($id)
     {
+        var_dump($id);
         $this->getBdd();
         return $this->details('doctor','Doctor','id',$id);
     }

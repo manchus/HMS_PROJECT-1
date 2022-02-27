@@ -15,4 +15,12 @@ class AdminManager extends Model
             echo "<script>document.location.href='/HMS_PROJECT/liste_medecin'</script>";  
         }
     }
+
+    public function getDetailId($id)
+    {
+        var_dump($id);
+        $this->getBdd();
+        return $this->details('administration','Administrateur','id',$id);
+    }
+
 }

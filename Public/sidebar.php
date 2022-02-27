@@ -69,6 +69,7 @@ if (
   $showRendezVous = false;
   $showTransactio = false;
   $showDiagnostique = false;
+  $showProfile = false;
 
 
 
@@ -101,6 +102,10 @@ if (
     isset($_COOKIE["adminemail"]) || isset($_COOKIE["nurseemail"])
     || isset($_COOKIE["doctoremail"]) || isset($_COOKIE["patientemail"])
   ) $showDiagnostique = true;
+  if (
+    isset($_COOKIE["adminemail"]) || isset($_COOKIE["nurseemail"])
+    || isset($_COOKIE["doctoremail"]) || isset($_COOKIE["patientemail"])
+  ) $showProfile = true;
 
   if ($showDepart)
     echo ('<a href="/HMS_PROJECT/liste_dep">Départements</a>');
@@ -122,6 +127,8 @@ if (
     echo ('<a href="/HMS_PROJECT/liste_invoice">Transactions</a>');
   if ($showDiagnostique)
     echo ('<a href="/HMS_PROJECT/liste_diagnostic">Diagnostiques</a>');
+  if ($showProfile)
+    echo ('<a href="/HMS_PROJECT/modif_profil">Mon Profile</a>');
 
   ?>
   <form method="post">
