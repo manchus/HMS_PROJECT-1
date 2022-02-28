@@ -18,9 +18,38 @@ class AdminManager extends Model
 
     public function getDetailId($id)
     {
-        var_dump($id);
         $this->getBdd();
-        return $this->details('administration','Administrateur','id',$id);
+        return $this->details('administration','Patient','id',$id);
     }
 
+    public function updateAdmin()
+    {
+        $this->getBdd();
+        if (isset($_GET["id"]))
+            $id = $_GET["id"];
+        else
+            $id = $_COOKIE["doctoradmin"];
+
+        if (isset($_POST["update"])) {
+            if (!empty($_POST)) {
+
+                echo "<script>window.location.href = '/HMS_PROJECT/liste_medecin';</script>";
+                return $this->updateDoctors(
+                    'doctor',
+                    $_POST["nom"],
+                    $_POST["prenom"],
+                    $_POST["ddn"],
+                    $_POST["email"],
+                    $_POST["adresse"],
+                    $_POST["code_postal"],
+                    $_POST["ville"],
+                    $_POST["province"],
+                    $_POST["telephone"],
+                    'Doctor',
+                    $id
+                );
+                $confirm = "La modification du médecin a été effectué avec succès!";
+            }
+        }
+    }
 }

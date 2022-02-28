@@ -81,7 +81,6 @@ abstract class Model
             $sql = "SELECT appointment.id, " . $table . ".nom, " . $table . ".prenom, MAX(appointment.date_rendezvous) dernier_rv, COUNT(appointment." . $field . ") as _qte_rv 
             FROM appointment," . $table . " WHERE appointment." . $field . " = " . $table . ".id AND " . $table . ".id = " . $_COOKIE["patientemail"] . "
             AND appointment.date_rendezvous " . ($way == 0 ? "<" : ">=") . " CURRENT_DATE() GROUP BY " . $field . "  ASC;";
-            var_dump($sql);
         }
 
         $query = self::$_db->prepare($sql);
@@ -171,11 +170,6 @@ abstract class Model
             AND appointment.date_rendezvous " . ($way == 0 ? "<" : ">=") . " CURRENT_DATE();";
         }
 
-        var_dump($sql);
-
-
-
-
         $query = self::$_db->prepare($sql);
         $query->execute();
         while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
@@ -203,6 +197,27 @@ abstract class Model
 
         $query = self::$_db->prepare($sql);
         $query->execute([$nom, $prenom, $ddn, $email, $adresse, $code, $ville, $province, $telephone, $id]);
+
+        $data = array(
+            "nom" => $nom, "prenom" => $prenom, "date_naissance" => $ddn,
+            "email" => $email, "adresse" => $adresse, "code_postal" => $code,
+            "ville" => $ville, "province" => $province, "telephone" => $telephone
+        );
+
+        $var = new $obj($data);
+
+        return $var;
+
+        $query->closeCursor();
+    }
+    public function updateProfil($table, $nom, $prenom, $ddn, $email, $adresse, $code, $ville, $province, $telephone, $mdp, $obj, $id)
+    {
+        $sql = "update " . $table . " set nom=?, prenom=?, date_naissance=?,
+        email=?,adresse=?, code_postal=?, ville=?, province=?, telephone=?, mdp=?
+        where id=?;";
+        $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT, array("cost" => 10));
+        $query = self::$_db->prepare($sql);
+        $query->execute([$nom, $prenom, $ddn, $email, $adresse, $code, $ville, $province, $telephone, $mdp_hash, $id]);
 
         $data = array(
             "nom" => $nom, "prenom" => $prenom, "date_naissance" => $ddn,
@@ -281,7 +296,6 @@ abstract class Model
         $query->execute();
         while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
             $var[] = new $obj($data);
-            //var_dump($data);
         }
         return $var;
         $query->closeCursor();
@@ -396,7 +410,6 @@ abstract class Model
 
         $var = new $obj($data);
 
-        //var_dump($data);
         return $var;
 
         $query->closeCursor();
@@ -409,12 +422,9 @@ abstract class Model
 
         $query = self::$_db->prepare($sql);
         $query->execute([$id_dep, $id_doc, $id]);
-
         $data = array("id_dep" => $id_dep, "id_doc" => $id_doc, "id" => $id);
 
         $var = new $obj($data);
-
-        //var_dump($data);
         return $var;
 
         $query->closeCursor();

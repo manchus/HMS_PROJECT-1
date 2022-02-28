@@ -22,7 +22,7 @@ try{
         $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
         $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
         $row3 = $stmt3->fetch(PDO::FETCH_ASSOC);
-        //var_dump($row3);
+
         ?>
         <style>
           .container{

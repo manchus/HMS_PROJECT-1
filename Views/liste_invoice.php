@@ -1,13 +1,16 @@
 <?php
 $this->_t = "Liste des factures";
 ?>
-
 <?php
 include("Public/sidebar.php");
 ?>
 <div class="col-10 table-responsive">
-  <h1 class="mytitle"><?php echo ($this->_t) ?></h1>
+  <p class="h3"><?php echo ($this->_usr);
+                echo (" > "); ?>
+    <small class="text-muted"> <?php echo ($this->_name); ?> </small></h3>
+  <h2><?php echo ($this->_t)   ?></h2>
 </div>
+
 <div class="col-10 table-responsive">
   <br>
   <a href="/HMS_PROJECT/liste_invoice&qry=patient" class="btn <?= $qry=="patient"?"btn-primary":"btn-info"; ?> float-right"><i class="fas fa-hospital-user"></i> Patients</a>

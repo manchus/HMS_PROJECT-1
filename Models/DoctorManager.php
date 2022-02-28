@@ -10,11 +10,11 @@ class DoctorManager extends Model
         if(isset($_POST["login"]) && !empty($_POST))
         {
             return $this->login('doctor','Doctor',
-            $_POST["email"],$_POST["mdp"],"liste_medecin","doctoremail");
+            $_POST["email"],$_POST["mdp"],"liste_rendezvous","doctoremail");
         }
         if(isset($_COOKIE["doctoremail"]))
         {
-            echo "<script>document.location.href='/HMS_PROJECT/liste_medecin'</script>";  
+            echo "<script>document.location.href='/HMS_PROJECT/liste_rendezvous'</script>";  
         }
         
     }
@@ -38,7 +38,6 @@ class DoctorManager extends Model
 
     public function getDoctorDetailId($id)
     {
-        var_dump($id);
         $this->getBdd();
         return $this->details('doctor','Doctor','id',$id);
     }
@@ -70,6 +69,35 @@ class DoctorManager extends Model
             }
         }
     }
+    public function updateDoctorPofil()
+    {
+        $this->getBdd();
+        $id = $_COOKIE["doctoremail"];
+        if (isset($_POST["update"])) {
+            if (!empty($_POST)) {
+                echo "<script>window.location.href = '/HMS_PROJECT/modif_profil';</script>";
+                return $this->updateProfil(
+                    'doctor',
+                    $_POST["nom"],
+                    $_POST["prenom"],
+                    $_POST["ddn"],
+                    $_POST["email"],
+                    $_POST["adresse"],
+                    $_POST["code_postal"],
+                    $_POST["ville"],
+                    $_POST["province"],
+                    $_POST["telephone"],
+                    $_POST["mdp"],
+                    'Doctor',
+                    $id
+                );
+                $confirm = "La modification du médecin a été effectué avec succès!";
+            }
+        }
+    }
+
+
+
 
     public function deletedoctor()
     {

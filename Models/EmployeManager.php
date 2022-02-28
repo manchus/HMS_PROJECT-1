@@ -32,6 +32,13 @@ class EmployeManager extends Model
             return $this->details('employee','Employe','id',$id);
         }
     }
+
+    public function getEmployeDetailId($id)
+    {
+        $this->getBdd();
+        return $this->details('employee','Employe','id',$id);
+    }
+
     public function addemploye()
     {
         $this->getBdd();

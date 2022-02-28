@@ -28,7 +28,7 @@ class liste_rendezvousController
             $qry = "patient";
         $field = $qry=="patient"?"id_patient":"id_medecin";
         
-        if(isset($_COOKIE["adminemail"])){
+        if(isset($_COOKIE["adminemail"])||isset($_COOKIE["nurseemail"])){
             $this->_manager = new SummaryUserAppointmentManager;
             $old = $this->_manager->getSummaryUserAppointmentSummary($qry,"SummaryUserAppointment",$field,0);
             $this->_manager = new ListUserAppointmentManager;

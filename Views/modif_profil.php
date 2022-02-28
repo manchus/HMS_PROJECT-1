@@ -1,20 +1,34 @@
 <br>
-<?php $this->_t = "Modification du médecin" ?>
+<?php $this->_t = "Mettre à jour mon profil" ?>
+<?php
+include("Public/sidebar.php");
+?>
+
+<div class="col-10 table-responsive">
+<p class="h3"><?php echo ($this->_usr); echo(" > ");?>
+  <small class="text-muted"> <?php echo ($this->_name);?> </small></h3>
+  <h2><?php echo ($this->_t)   ?></h2>
+</div>
+
+
 <form method="post" class="form-group container jumbotron" id="form" enctype="multipart/form-data">
     <label for="nomcomplet">Nom complet <b style="color:red;">*</b></label>
         <div class="row">
             <div class="col">
-                <input type="text" class="form-control" placeholder="Nom" id="nom" value="<?php echo($doctor->nom());?>" name="nom" required>
+                <input type="text" class="form-control" placeholder="Nom" id="nom" value="<?php echo($doctor->nom());?>" name="nomProfil" disabled>
+                <input type="hidden" value="<?php echo($doctor->nom());?>" name="nom" >
             </div>
             <div class="col">
-                <input type="text" class="form-control" placeholder="Prénom" id="prenom" value="<?php echo($doctor->prenom());?>" name="prenom" required>
+                <input type="text" class="form-control" placeholder="Prénom" id="prenom" value="<?php echo($doctor->prenom());?>" name="prenomProfil" disabled>
+                <input type="hidden" value="<?php echo($doctor->prenom());?>" name="prenom" >
             </div>
         </div>
         <br>
         <label for="datenaissance">Date de naissance <b style="color:red;">*</b></label>
         <div class="row">
             <div class="col">
-                <input type="date" class="form-control" placeholder="Date de naissance" id="ddn" value="<?php echo($doctor->date_naissance());?>" name="ddn" required>
+                <input type="date" class="form-control" placeholder="Date de naissance" id="ddn" value="<?php echo($doctor->date_naissance());?>" name="ddnProfil" disabled>
+                <input type="hidden" value="<?php echo($doctor->date_naissance());?>" name="ddn" >
             </div>
         </div>
         <br>
@@ -66,9 +80,16 @@
             </div>
         </div>
         <br>
+        <label for="telephone">Nouveau mot de passe <b style="color:red;">*</b></label>
+        <div class="row">
+            <div class="col">
+                <input type="password" class="form-control" placeholder="********" id="mdp"  name="mdp" required>
+            </div>
+        </div>
+        <br>
         <div class="row">
             <div class="col-3">
-                <a href="/HMS_PROJECT/liste_medecin" class="btn btn-info">Retour</a>
+                <a href="/HMS_PROJECT/liste_rendezvous" class="btn btn-info">Retour</a>
             </div>
             <div class="col-6">
             </div>

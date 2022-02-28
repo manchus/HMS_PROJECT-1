@@ -1,6 +1,5 @@
 <?php
 $this->_t = "Détail du rendez-vous";
-       //var_dump($row3);
         ?>
         <style>
           .container{

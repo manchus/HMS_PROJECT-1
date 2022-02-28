@@ -16,32 +16,34 @@
                 if(!isset($_POST["update"]))
                     $this->getProfilUpdate();
                 else
-                    $this->doctors();
+                    $this->user();
             }
         }
     
-        private function doctors()
+        private function user()
         {
-            /*
-            if($_COOKIE["doctoremail"]){
+            if(isset($_COOKIE["doctoremail"])){
                 $this->_usermanager = new DoctorManager;
-
+                $docs = $this->_usermanager->updateDoctorPofil();
             }
-            if($_COOKIE["employeemail"]){
-                $this->_usermanager = new EmployeManager;
-
+            if(isset($_COOKIE["patientemail"])){
+                $this->_usermanager = new PatientManager;
+                $docs = $this->_usermanager->updatepatient();
             }
-            if($_COOKIE["nurseemail"]){
+            if(isset($_COOKIE["nurseemail"])){
                 $this->_usermanager = new NurseManager;
-
+                $docs = $this->_usermanager->updatenurse();          
             }
-            if($_COOKIE["patientemail"]){
-              $this->_usermanager = new PatientManager;
-              $docs = $this->_usermanager->updatePatient();
+            if(isset($_COOKIE["employeemail"])){
+                $this->_usermanager = new EmployeManager;
+                $docs = $this->_usermanager->updateemploye();         
             }
-        */
-        $this->_usermanager = new DoctorManager;
-        $docs = $this->_usermanager->updateDoctor();
+            if(isset($_COOKIE["adminemail"])){
+                $this->_usermanager = new AdminManager;
+                $docs = $this->_usermanager->getDetailId($_COOKIE["adminemail"]);             
+            }
+       // $this->_usermanager = new DoctorManager;
+       // $docs = $this->_usermanager->updateDoctor();
     
             $this->_view = new View('modif_profil');
             $this->_view->generate(array('doctor' => $docs));
@@ -49,8 +51,6 @@
 
         private function getProfilUpdate()
         {
-            var_dump($_COOKIE);
-            var_dump($_REQUEST);
             if(isset($_COOKIE["doctoremail"])){
                 $this->_usermanager = new DoctorManager;
                 $docs = $this->_usermanager->getDoctorDetailId($_COOKIE["doctoremail"]);
@@ -59,12 +59,19 @@
                 $this->_usermanager = new PatientManager;
                 $docs = $this->_usermanager->getPatientDetailId($_COOKIE["patientemail"]);
             }
+            if(isset($_COOKIE["nurseemail"])){
+                $this->_usermanager = new NurseManager;
+                $docs = $this->_usermanager->getNurseDetailId($_COOKIE["nurseemail"]);          
+            }
+            if(isset($_COOKIE["employeemail"])){
+                $this->_usermanager = new EmployeManager;
+                $docs = $this->_usermanager->getEmployeDetailId($_COOKIE["employeemail"]);          
+            }
             if(isset($_COOKIE["adminemail"])){
                 $this->_usermanager = new AdminManager;
-                $docs = $this->_usermanager->getDetailId($_COOKIE["adminemail"]);
+                $docs = $this->_usermanager->getDetailId($_COOKIE["adminemail"]);             
             }
 
-                
             $this->_view = new View('modif_profil');
             $this->_view->generate(array('doctor' => $docs));
         }

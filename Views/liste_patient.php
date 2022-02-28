@@ -21,7 +21,6 @@ $this->_t = "Liste des patients";
   </thead>
 <?php
 foreach($patient as $d): 
-  //var_dump($d);
 ?>
   <tbody>
     <tr>

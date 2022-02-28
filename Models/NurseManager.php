@@ -8,11 +8,11 @@ class NurseManager extends Model
         if(isset($_POST["login"]) && !empty($_POST))
         {
             return $this->login('nurse','Nurse',
-            $_POST["email"],$_POST["mdp"],"liste_medecin","nurseemail");
+            $_POST["email"],$_POST["mdp"],"liste_rendezvous","nurseemail");
         }
         if(isset($_COOKIE["nurseemail"]))
         {
-            echo "<script>document.location.href='/HMS_PROJECT/liste_medecin'</script>";  
+            echo "<script>document.location.href='/HMS_PROJECT/liste_rendezvous'</script>";  
         }
         
     }
@@ -31,6 +31,13 @@ class NurseManager extends Model
             return $this->details('nurse','Nurse','id',$id);
         }
     }
+
+    public function getNurseDetailId($id)
+    {
+        $this->getBdd();
+        return $this->details('nurse','Nurse','id',$id);
+    }
+
     public function updatenurse()
     {
         $this->getBdd();
