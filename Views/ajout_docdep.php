@@ -1,5 +1,15 @@
 <br>
 <?php $this->_t = "Insertion du médecin à l'hôpital" ?>
+<?php
+include("Public/sidebar.php");
+?>
+<div class="col-10 table-responsive">
+  <p class="h3"><?php echo ($this->_usr);
+                echo (" > "); ?>
+    <small class="text-muted"> <?php echo ($this->_name); ?> </small></h3>
+  <h2><?php echo ($this->_t)   ?></h2>
+</div>
+
 <form method="post" class="form-group container jumbotron" id="form"  align="center">
         <div class="row">
         <label for="nomcomplet">Nom complet du médecin <b style="color:red;">*</b></label>

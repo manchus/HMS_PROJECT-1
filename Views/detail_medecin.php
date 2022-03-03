@@ -2,6 +2,16 @@
 $this->_t = "Détail du médecin";
 
 ?>
+<?php
+include("Public/sidebar.php");
+?>
+<div class="col-10 table-responsive">
+  <p class="h3"><?php echo ($this->_usr);
+                echo (" > "); ?>
+    <small class="text-muted"> <?php echo ($this->_name); ?> </small></h3>
+  <h2><?php echo ($this->_t)   ?></h2>
+</div>
+
 <style>
   .container {
     border-style: none;

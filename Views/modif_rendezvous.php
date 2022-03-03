@@ -1,5 +1,16 @@
 <br>
 <?php $this->_t = "Modification du Rendez vous" ?>
+<?php
+include("Public/sidebar.php");
+?>
+<div class="col-10 table-responsive">
+  <p class="h3"><?php echo ($this->_usr);
+                echo (" > "); ?>
+    <small class="text-muted"> <?php echo ($this->_name); ?> </small></h3>
+  <h2><?php echo ($this->_t)   ?></h2>
+</div>
+
+
 <?php var_dump($_GET);
  var_dump($_POST);
 ?>

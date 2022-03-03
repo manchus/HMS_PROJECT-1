@@ -1,5 +1,15 @@
 <br>
 <?php $this->_t = "Insertion du département" ?>
+<?php
+include("Public/sidebar.php");
+?>
+<div class="col-10 table-responsive">
+  <p class="h3"><?php echo ($this->_usr);
+                echo (" > "); ?>
+    <small class="text-muted"> <?php echo ($this->_name); ?> </small></h3>
+  <h2><?php echo ($this->_t)   ?></h2>
+</div>
+
 <form method="post" class="form-group container jumbotron" id="form" enctype="multipart/form-data">
     <label for="nomdep">Nom du Département<b style="color:red;">*</b></label>
         <div class="row">

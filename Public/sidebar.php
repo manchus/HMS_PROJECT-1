@@ -120,7 +120,7 @@ if (
     echo ('<a href="/HMS_PROJECT/liste_invoice">Transactions</a>');
   if ($showDiagnostique)
     echo ('<a href="/HMS_PROJECT/liste_diagnostic">Diagnostiques</a>');
-  echo ('<a href="/HMS_PROJECT/modif_profil">Mon Profile</a>');
+  echo ('<a href="/HMS_PROJECT/detail_user">Mon Profile</a>');
 
   ?>
   <form method="post">
