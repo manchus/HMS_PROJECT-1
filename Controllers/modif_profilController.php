@@ -28,15 +28,15 @@
             }
             if(isset($_COOKIE["patientemail"])){
                 $this->_usermanager = new PatientManager;
-                $docs = $this->_usermanager->updatepatient();
+                $docs = $this->_usermanager->updatePatientPofil();
             }
             if(isset($_COOKIE["nurseemail"])){
                 $this->_usermanager = new NurseManager;
-                $docs = $this->_usermanager->updatenurse();          
+                $docs = $this->_usermanager->updateNursePofil();          
             }
             if(isset($_COOKIE["employeemail"])){
                 $this->_usermanager = new EmployeManager;
-                $docs = $this->_usermanager->updateemploye();         
+                $docs = $this->_usermanager->updateEmployePofil();         
             }
             if(isset($_COOKIE["adminemail"])){
                 $this->_usermanager = new AdminManager;

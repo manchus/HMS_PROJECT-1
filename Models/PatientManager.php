@@ -70,6 +70,34 @@ class PatientManager extends Model
             $_POST['description'],'Patient',$_GET['id']);
         }
     }
+
+    public function updatePatientPofil()
+    {
+        $this->getBdd();
+        $id = $_COOKIE["patientemail"];
+        if (isset($_POST["update"])) {
+            if (!empty($_POST)) {
+                echo "<script>window.location.href = '/HMS_PROJECT/modif_profil';</script>";
+                return $this->updateProfil(
+                    'patient',
+                    $_POST["nom"],
+                    $_POST["prenom"],
+                    $_POST["ddn"],
+                    $_POST["email"],
+                    $_POST["adresse"],
+                    $_POST["code_postal"],
+                    $_POST["ville"],
+                    $_POST["province"],
+                    $_POST["telephone"],
+                    $_POST["mdp"],
+                    'Patient',
+                    $id
+                );
+                $confirm = "La modification du patient a été effectué avec succès!";
+            }
+        }
+    }
+
 }
 
 ?>

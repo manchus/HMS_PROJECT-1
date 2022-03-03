@@ -79,5 +79,31 @@ class NurseManager extends Model
             $confirm = "L'ajout de l'infirmie a été effectué avec succès!";
         }
     }
+
+    public function updateNursePofil()
+    {
+        $this->getBdd();
+        $id = $_COOKIE["nurseemail"];
+        if (isset($_POST["update"])) {
+            if (!empty($_POST)) {
+                echo "<script>window.location.href = '/HMS_PROJECT/modif_profil';</script>";
+                return $this->updateProfil(
+                    'nurse',
+                    $_POST["nom"],
+                    $_POST["prenom"],
+                    $_POST["ddn"],
+                    $_POST["email"],
+                    $_POST["adresse"],
+                    $_POST["code_postal"],
+                    $_POST["ville"],
+                    $_POST["province"],
+                    $_POST["telephone"],
+                    $_POST["mdp"],
+                    'Nurse',
+                    $id
+                );
+                $confirm = "La modification de l'infirmière a été effectué avec succès!";
+            }
+        }
+    }
 }
-?>

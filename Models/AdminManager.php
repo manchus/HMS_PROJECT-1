@@ -22,20 +22,15 @@ class AdminManager extends Model
         return $this->details('administration','Patient','id',$id);
     }
 
-    public function updateAdmin()
+    public function updateEmployePofil()
     {
         $this->getBdd();
-        if (isset($_GET["id"]))
-            $id = $_GET["id"];
-        else
-            $id = $_COOKIE["doctoradmin"];
-
+        $id = $_COOKIE["nurseemail"];
         if (isset($_POST["update"])) {
             if (!empty($_POST)) {
-
-                echo "<script>window.location.href = '/HMS_PROJECT/liste_medecin';</script>";
-                return $this->updateDoctors(
-                    'doctor',
+                echo "<script>window.location.href = '/HMS_PROJECT/modif_profil';</script>";
+                return $this->updateProfil(
+                    'administration',
                     $_POST["nom"],
                     $_POST["prenom"],
                     $_POST["ddn"],
@@ -45,11 +40,13 @@ class AdminManager extends Model
                     $_POST["ville"],
                     $_POST["province"],
                     $_POST["telephone"],
-                    'Doctor',
+                    $_POST["mdp"],
+                    'Administrateur',
                     $id
                 );
-                $confirm = "La modification du médecin a été effectué avec succès!";
+                $confirm = "La modification de l'administrateur a été effectué avec succès!";
             }
         }
     }
+
 }

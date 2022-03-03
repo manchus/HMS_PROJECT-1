@@ -1,1 +1,2 @@
-<h1>Page introuvable</h1>
+
+<h1><?= $errorMsg ?></h1>

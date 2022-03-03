@@ -1,8 +1,14 @@
 <br>
 <?php $this->_t = "Ajouter Rendez-vous" ?>
 <div class="col-10 table-responsive">
-    <h1 class="mytitle"><?php echo ($this->_t) ?></h1>
+    <p class="h3"><?php echo ($this->_usr);
+                    echo (" > "); ?>
+        <small class="text-muted"> <?php echo ($this->_name); ?> </small></h3>
+    <h2><?php echo ($this->_t)   ?></h2>
 </div>
+
+
+
 <form method="post" class="form-group container jumbotron" id="form" enctype="multipart/form-data">
     <label for="id_patient">Nom du Patient<b style="color:red;">*</b></label>
     <div class="row">
@@ -19,7 +25,7 @@
     <label for="id_departement">Lieu<b style="color:red;">*</b></label>
     <div class="row">
         <div class="col">
-            <select name="id_departement">
+            <select name="id_departement" id="id_departement">
                 <?php foreach ($depart as $de) : ?>
                     <option value="<?= $de->id() ?>"><?= $de->nom_dep(); ?></option>
                 <?php endforeach; ?>
@@ -31,14 +37,11 @@
     <label for="id_medecin">Medecin <b style="color:red;">*</b></label>
     <div class="row">
         <div class="col">
-            <select name="id_medecin">
-                <?php foreach ($medecin as $me) : ?>
-                    <option value="<?= $me->id() ?>">Dr.<?= $me->prenom(); ?> <?= $me->nom(); ?></option>
-                <?php endforeach; ?>
+            <select name="id_medecin" id="id_medecin">
             </select>
         </div>
     </div>
-    <br>
+    <h6>Les médecins seront affichés en fonction du lieu d'attention</h6>
     <br>
     <table class="table" style="text-align: center;">
         <thead class="thead-light">
@@ -87,4 +90,39 @@
             <input type="submit" class="btn btn-info" name="add" value="Ajouter">
         </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <script>
+        $(document).ready(function() {
+            $("#id_departement").val();
+            loadList();
+
+            $("#id_departement").change(function() {
+                loadList();
+            });
+        })
+
+
+        function loadList() {
+            $.ajax({
+
+                    url: "ajout_rendezvous", // Url to which the request is 
+                    type: "POST", // Type of request to be sent, called as method
+                    data: "id_dep=" + $('#id_departement').val(), // Data sent to server, a set of key/value pairs
+                    success: function(data) // A function to be called if request succeeds
+                    {
+                        $("#id_medecin").html(data);
+                        $("#loading").hide();
+                    }
+                }).fail(function(r) {
+                    console.log(r);
+                })
+                .done(function(r) {
+                    console.log(r);
+                })
+        }
+    </script>
+
 </form>

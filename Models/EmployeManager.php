@@ -45,6 +45,7 @@ class EmployeManager extends Model
         if(isset($_POST["add"]) && !empty($_POST))
         {
             echo "<script>window.location.href = '/HMS_PROJECT/liste_employe';</script>";
+            
             return $this->addEmployes('employee',$_POST["nom"],
             $_POST["prenom"],$_POST["ddn"],$_POST["fonction"],$_FILES['photo']['name'],
             $_POST["email"],$_POST["adresse"],$_POST["code_postal"],
@@ -73,6 +74,36 @@ class EmployeManager extends Model
             }
         }
     }
+
+
+    public function updateEmployePofil()
+    {
+        $this->getBdd();
+        $id = $_COOKIE["nurseemail"];
+        if (isset($_POST["update"])) {
+            if (!empty($_POST)) {
+                echo "<script>window.location.href = '/HMS_PROJECT/modif_profil';</script>";
+                return $this->updateProfil(
+                    'employee',
+                    $_POST["nom"],
+                    $_POST["prenom"],
+                    $_POST["ddn"],
+                    $_POST["email"],
+                    $_POST["adresse"],
+                    $_POST["code_postal"],
+                    $_POST["ville"],
+                    $_POST["province"],
+                    $_POST["telephone"],
+                    $_POST["mdp"],
+                    'Employe',
+                    $id
+                );
+                $confirm = "La modification de la nurse a été effectué avec succès!";
+            }
+        }
+    }
+
+
     public function deleteemploye()
     {
         $this->getBdd();

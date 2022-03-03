@@ -48,20 +48,26 @@ class AppointmentManager extends Model
         $this->getBdd();
         if(isset($_POST["add"]) && !empty($_POST))
         {
-            $verify =$this->verifyAppointment('appointment',$_POST["id_patient"],$_POST["id_medecin"],
-            $_POST["date_rendezvous"],$_POST["heure_rendezvous"]);
-            if(strlen($verify)>0)
-                echo "<script>alert('".$verify."');</script>";
-            else
-            {
-                echo "<script>window.location.href = '/HMS_PROJECT/liste_rendezvous';</script>";
-                return $this->addAppointment('appointment',$_POST["id_patient"],$_POST["id_medecin"],
-                $_POST["date_rendezvous"],$_POST["heure_rendezvous"],'Appointment');
-            }
+            echo "<script>window.location.href = '/HMS_PROJECT/liste_rendezvous';</script>";
+            return $this->addAppointment('appointment',$_POST["id_patient"],$_POST["id_medecin"],
+            $_POST["date_rendezvous"],$_POST["heure_rendezvous"],'Appointment');
+          
+        }
+        if(isset($_POST["id_dep"]) && !empty($_POST))
+        {
+           
+                return $this->addAppointment('appointment',"7","6","2022-03-07","07:30",'Appointment');
            
         }
     }
 
+    public function getListeDoc_from_Dep($id_dep)
+    {
+        
+        $this->getBdd();
+        $this->getdoc_from_dep($id_dep);
+       // echo "afdsa";
+    }
 
 
 }

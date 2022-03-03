@@ -315,6 +315,20 @@ abstract class Model
         $query->closeCursor();
     }
 
+    public function getdoc_from_dep($id_dep)
+    {
+        $var = "<select id='id_medecin' name='id_medecin'>";
+        $sql = "SELECT id,nom,prenom FROM doctor WHERE id IN (select id_doc FROM doctor_departement WHERE id_dep =".$id_dep.");";
+        $query = self::$_db->prepare($sql);
+        $query->execute();
+        while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
+            $var = $var.'<option value='.$data['id'].'>'.$data['nom'].' '.$data['prenom'].'</option>';;
+            //var_dump($data);
+        }
+        echo  $var."</select>";
+        var_dump($var);
+        $query->closeCursor();
+    }
 
     public function verifyAppointment($table, $id_patient, $id_medecin, $date, $heure)
     {

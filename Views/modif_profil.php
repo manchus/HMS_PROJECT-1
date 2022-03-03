@@ -89,11 +89,6 @@ include("Public/sidebar.php");
         <br>
         <div class="row">
             <div class="col-3">
-                <a href="/HMS_PROJECT/liste_rendezvous" class="btn btn-info">Retour</a>
-            </div>
-            <div class="col-6">
-            </div>
-            <div class="col-3">
                 <input type="submit" class="btn btn-info" name="update" value="Mettre à Jour">
             </div>
         </div>
