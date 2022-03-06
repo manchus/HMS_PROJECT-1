@@ -285,6 +285,16 @@ abstract class Model
         $query->closeCursor();
     }
 
+    public function deleteByField($table, $field, $id)
+    {
+        $sql = "delete from " . $table . " where ".$field."=".$id.";";
+        $query = self::$_db->prepare($sql);
+      //  $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->execute();
+
+        $query->closeCursor();
+    }
+
     public function getdocdep($table1, $table2, $table3, $obj)
     {
         $var = [];
@@ -408,9 +418,18 @@ abstract class Model
         $query->closeCursor();
     }
 
-
-
-
+    public function updateInvoice($table, $id_rendezvous, $prix_rendezvous, $obj, $id)
+    {
+        $sql = "update " . $table . " set id_rendezvous=?, prix_rendezvous=? where id=?";
+        $query = self::$_db->prepare($sql);
+        $query->execute([$id_rendezvous, $prix_rendezvous, $id]);
+        $data = array(
+            "id_rendezvous" => $id_rendezvous, "prix_rendezvous" => $prix_rendezvous, "id" => $id
+        );
+        $var = new $obj($data);
+        return $var;
+        $query->closeCursor();
+    }    
 
 
     public function addDocDep($table, $obj, $id_dep, $id_doc)

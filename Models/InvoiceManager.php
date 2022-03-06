@@ -19,7 +19,11 @@ class InvoiceManager extends Model
         return $this->getAll('doctor','Doctor');
     }
 
-
+    public function getInvoiceByAppointment($id_rv)
+    {
+        $this->getBdd();
+        return $this->details('Invoice','Invoice','id_rendezvous',$id_rv);
+    }
 
     public function deleteInvoice()
     {
@@ -42,13 +46,22 @@ class InvoiceManager extends Model
 
         }
     }
-    public function updateInvoice()
+    public function updInvoicePost()
     {
         $this->getBdd();
         if(isset($_POST["update"]) && !empty($_POST))
-        {
-            //var_dump($_POST);
-            //var_dump($_GET);
+        {      
+            echo "<script>window.location.href = '/HMS_PROJECT/liste_rendezvous';</script>";
+            return $this->updateInvoice('invoice',$_POST["id_rendezvous"]
+            ,$_POST["prix_rendezvous"],'Invoice',$_POST["id"]);
+        }
+    }
+
+    public function updInvoice()
+    {
+        $this->getBdd();
+        if(isset($_POST["update"]) && !empty($_POST))
+        {      
             echo "<script>window.location.href = '/HMS_PROJECT/liste_rendezvous';</script>";
             return $this->updateInvoice('invoice',$_POST["id_rendezvous"]
             ,$_POST["prix_rendezvous"],'Invoice',$_GET["id"]);

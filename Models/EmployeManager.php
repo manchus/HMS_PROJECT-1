@@ -9,7 +9,7 @@ class EmployeManager extends Model
         if(isset($_POST["login"]) && !empty($_POST))
         {
             return $this->login('employee','Employe',
-            $_POST["email"],$_POST["mdp"],"liste_medecin","employeemail");
+            $_POST["email"],$_POST["mdp"],"detail_user","employeemail");
         }
         if(isset($_COOKIE["employeemail"]))
         {

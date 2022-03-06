@@ -10,7 +10,7 @@ class DoctorManager extends Model
         if(isset($_POST["login"]) && !empty($_POST))
         {
             return $this->login('doctor','Doctor',
-            $_POST["email"],$_POST["mdp"],"liste_rendezvous","doctoremail");
+            $_POST["email"],$_POST["mdp"],"detail_user","doctoremail");
         }
         if(isset($_COOKIE["doctoremail"]))
         {

@@ -1,7 +1,4 @@
-<?php
-$this->_t = "Mon Profile";
-
-?>
+<?php $this->_t = "Mon Profile"; ?>
 <?php
 include("Public/sidebar.php");
 ?>
@@ -22,7 +19,6 @@ include("Public/sidebar.php");
     border-style: none;
   }
 </style>
-<br><br>
 <div class="container">
   <br>
   <div class="row">

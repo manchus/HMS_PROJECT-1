@@ -22,8 +22,6 @@ class Detail_rendezvousController
     {
         $this->_manager = new AppointmentManager;
         $docs = $this->_manager->getAppointmentDetail();
-var_dump($_GET);
-var_dump($docs);
         $this->_view = new View('detail_rendezvous');
         $this->_view->generate(array('appointment' => $docs));
     }

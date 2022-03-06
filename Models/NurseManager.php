@@ -8,7 +8,7 @@ class NurseManager extends Model
         if(isset($_POST["login"]) && !empty($_POST))
         {
             return $this->login('nurse','Nurse',
-            $_POST["email"],$_POST["mdp"],"liste_rendezvous","nurseemail");
+            $_POST["email"],$_POST["mdp"],"detail_user","nurseemail");
         }
         if(isset($_COOKIE["nurseemail"]))
         {

@@ -40,6 +40,7 @@ class AppointmentManager extends Model
         if(isset($_GET["id"]))
         {
             $id = $_GET["id"];
+            $this->deleteByField('invoice','id_rendezvous',$id);
             return $this->delete('appointment','Appointment',$id);
         }
     }
@@ -53,12 +54,12 @@ class AppointmentManager extends Model
             $_POST["date_rendezvous"],$_POST["heure_rendezvous"],'Appointment');
           
         }
-        if(isset($_POST["id_dep"]) && !empty($_POST))
-        {
+        // if(isset($_POST["id_dep"]) && !empty($_POST))
+        // {
            
-                return $this->addAppointment('appointment',"7","6","2022-03-07","07:30",'Appointment');
+        //         return $this->addAppointment('appointment',"7","6","2022-03-07","07:30",'Appointment');
            
-        }
+        // }
     }
 
     public function getListeDoc_from_Dep($id_dep)

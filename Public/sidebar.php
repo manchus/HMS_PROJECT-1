@@ -71,33 +71,32 @@ if (
   $showDiagnostique = false;
 
   if (
-    isset($_COOKIE["adminemail"]) || isset($_COOKIE["employeemail"])
+    isset($_COOKIE["adminemail"]) 
     || isset($_COOKIE["doctoremail"])
   ) $showDepart = true;
   if (
-    isset($_COOKIE["adminemail"]) || isset($_COOKIE["employeemail"]) || isset($_COOKIE["nurseemail"])
+    isset($_COOKIE["adminemail"])  || isset($_COOKIE["nurseemail"])
   ) $showMedicin = true;
   if (
     isset($_COOKIE["adminemail"]) || isset($_COOKIE["nurseemail"])
     || isset($_COOKIE["doctoremail"])
   ) $showPatient = true;
   if (
-    isset($_COOKIE["adminemail"]) || isset($_COOKIE["employeemail"])
+    isset($_COOKIE["adminemail"]) //|| isset($_COOKIE["employeemail"])
   ) $showInfirmiers = true;
   if (
-    isset($_COOKIE["adminemail"]) || isset($_COOKIE["employeemail"])
+    isset($_COOKIE["adminemail"]) //|| isset($_COOKIE["employeemail"])
   ) $showEmployes = true;
   if (
     isset($_COOKIE["adminemail"]) || isset($_COOKIE["nurseemail"])
     || isset($_COOKIE["doctoremail"]) || isset($_COOKIE["patientemail"])
   ) $showRendezVous = true;
   if (
-    isset($_COOKIE["adminemail"]) || isset($_COOKIE["employeemail"])
-    || isset($_COOKIE["patientemail"])
+    isset($_COOKIE["adminemail"]) | isset($_COOKIE["patientemail"])
   ) $showTransactio = true;
   if (
     isset($_COOKIE["adminemail"]) || isset($_COOKIE["nurseemail"])
-    || isset($_COOKIE["doctoremail"]) || isset($_COOKIE["patientemail"])
+    || isset($_COOKIE["doctoremail"])
   ) $showDiagnostique = true;
 
   if ($showDepart)

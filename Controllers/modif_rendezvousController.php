@@ -15,9 +15,7 @@ class modif_rendezvousController
             throw new Exception('Page introuvable');
         }
         else
-        {
-         //   if(isset($_GET["id"]))
-         //       
+        {   
             if(!isset($_POST["update"]))
               $this->rdvUpdate();
             else
@@ -31,24 +29,23 @@ class modif_rendezvousController
         $this->_manager = new AppointmentManager;
         $rdv = $this->_manager->updateRendezvous();
 
-    //    $this->_view = new View('modif_rendezvous');
-    //    $this->_view->generate(array('rendezvous' => $rdv));
+        $this->_view = new View('liste_rendezvous');
+        $this->_view->generate(array('rendezvous' => $rdv));
     }
 
     private function rdvUpdate()
     {
-        $this->_manager = new AppointmentManager;
-        $rdv = $this->_manager->getAppointmentDetail();
-
-        $this->_managerDoctor = new DoctorManager;
-        $rdvDoctor = $this->_managerDoctor->getDoctorDetailId($rdv->id_medecin());
-
-        $this->_managerPatient = new PatientManager;
-        $rdvPatient = $this->_managerPatient->getPatientDetailId($rdv->id_patient());
-
-
-        $this->_view = new View('modif_rendezvous');
-        $this->_view->generate(array('rendezvous' => $rdv,'patient'=>$rdvPatient,'doctor'=>$rdvDoctor));
+    
+            $this->_appmanager = new AppointmentManager;
+            $apoint = $this->_appmanager->getAppointmentDetail();
+            $this->_docmanager = new DoctorManager;
+            $med = $this->_docmanager->getDoctorDetailId($apoint->id_medecin());
+            $this->_patientmanager = new PatientManager;
+            $pat = $this->_patientmanager->getPatientDetailId($apoint->id_patient());
+            $this->_depmanager = new DepartementManager;
+            $dep = $this->_depmanager->getDepartements();
+            $this->_view = new View('modif_rendezvous');
+            $this->_view->generate(array('rendezvous' => $apoint,'patient'=>$pat,'medecin'=>$med,'depart'=>$dep));
     }
 }
 ?>

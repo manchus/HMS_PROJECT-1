@@ -53,7 +53,7 @@ class SummaryAppointmentDetailManager extends Model
 
         }
     }
-    public function updateInvoice()
+    public function updateAppInvoice()
     {
         $this->getBdd();
         if(isset($_POST["update"]) && !empty($_POST))
