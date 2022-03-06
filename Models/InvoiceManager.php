@@ -62,7 +62,7 @@ class InvoiceManager extends Model
         $this->getBdd();
         if(isset($_POST["update"]) && !empty($_POST))
         {      
-            echo "<script>window.location.href = '/HMS_PROJECT/liste_rendezvous';</script>";
+            echo "<script>window.location.href = '/HMS_PROJECT/liste_invoice';</script>";
             return $this->updateInvoice('invoice',$_POST["id_rendezvous"]
             ,$_POST["prix_rendezvous"],'Invoice',$_GET["id"]);
         }

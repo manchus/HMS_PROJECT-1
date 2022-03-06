@@ -54,18 +54,18 @@ class Detail_invoiceController
         if ($usr == "patient") {
             $invo = $this->_manager->getSummaryInvoiceDetail($usr,$_GET["id"]);
             $menu = ["Patient", "Medecin", "Quantité rendez-vous", "Prix rendez-vous"];
-            $title = "Liste des rendez-vous par patient";
+            $title = "Liste des paiements par patient";
         }
         if ($usr == "doctor") {
             $invo = $this->_manager->getSummaryInvoiceDetail($usr,$_GET["id"]);
             $menu = ["Medecin", "Patient", "Quantité rendez-vous", "Prix rendez-vous"];
-            $title = "Liste des rendez-vous par médecin";
+            $title = "Liste des paiements par médecin";
         }
 
         if ($usr == "date") {
             $invo = $this->_manager->getSummaryInvoiceDetail($usr,$_GET["id"]);
             $menu = ["Patient", "Medecin", "Quantité rendez-vous", "Prix rendez-vous"];
-            $title = "Liste des rendez-vous pour une date précise";
+            $title = "Liste des paiements pour une date précise";
         }
 
         $this->_view = new View('detail_invoice');

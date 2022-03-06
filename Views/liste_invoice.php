@@ -15,7 +15,7 @@ include("Public/sidebar.php");
   <br>
   <a href="/HMS_PROJECT/liste_invoice&qry=patient" class="btn <?= $qry=="patient"?"btn-primary":"btn-info"; ?> float-right"><i class="fas fa-hospital-user"></i> Patients</a>
   <a href="/HMS_PROJECT/liste_invoice&qry=doctor" class="btn <?= $qry=="doctor"?"btn-primary":"btn-info"; ?> float-right"><i class="fas fa-user-md"></i> Medicin</a>
-  <a href="/HMS_PROJECT/liste_invoice&qry=date" class="btn <?= $qry=="date"?"btn-primary":"btn-info"; ?> float-right"><i class="fas fa-calendar-alt"></i></i> Mois</a>
+ <!-- <a href="/HMS_PROJECT/liste_invoice&qry=date" class="btn  $qry=="date"?"btn-primary":"btn-info";  float-right"><i class="fas fa-calendar-alt"></i></i> Mois</a> -->
 
   <br>
   <table class="table table-bordered">
@@ -59,11 +59,11 @@ include("Public/sidebar.php");
               <a href="http://localhost/HMS_PROJECT/index.php?url=detail_invoice&opt=<?= $qry ?>&id=<?= $d->id_d(); ?>" id="link" style="text-decoration:none;" id="link" style="text-decoration:none;"><i class="fas fa-info-circle"></i> </a>
             <?php } ?>
             <?php if($qry =="patient"){ ?>
-              <a href="http://localhost/HMS_PROJECT/index.php?url=detail_invoice&opt=<?= $qry ?>&id=<?= $d->id_d(); ?>" id="link" style="text-decoration:none;" id="link" style="text-decoration:none;"><i class="fas fa-info-circle"></i> </a>
+              <a href="http://localhost/HMS_PROJECT/index.php?url=detail_invoice&opt=<?= $qry ?>&id=<?= $d->id_p(); ?>" id="link" style="text-decoration:none;" id="link" style="text-decoration:none;"><i class="fas fa-info-circle"></i> </a>
             <?php } ?>
-            <?php if($qry =="date"){ ?>
-              <a href="http://localhost/HMS_PROJECT/index.php?url=detail_invoice&opt=<?= $qry ?>&id=<?= $d->date_rv(); ?>" id="link" style="text-decoration:none;" id="link" style="text-decoration:none;"><i class="fas fa-info-circle"></i> </a>
-            <?php } ?>
+            <?//php if($qry =="date"){ ?>
+             <!-- <a href="http://localhost/HMS_PROJECT/index.php?url=detail_invoice&opt= $qry &id=  $d->date_rv(); " id="link" style="text-decoration:none;" id="link" style="text-decoration:none;"><i class="fas fa-info-circle"></i> </a> -->
+            <?php // } ?>
            </td>
         </tr>
       </tbody>
