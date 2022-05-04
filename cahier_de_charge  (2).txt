@@ -1,8 +1,0 @@
-1)compléter l'interface des rendez-vous(ajouter l'option pour prendre un rendez_vous et annulé)
-2)concevoir et réaliser l'interface pour les transactions
-3)concevoir et réaliser l'interface pour les Diagnostics
-4)concevoir et réaliser l'interface 
-5)identifier les formulaire des login.
-6)sauvgarder les fichier(cv,recus de paiment ) et les images dans la base des données
-7)encrypter les mdp pour la base de donnée 
-
