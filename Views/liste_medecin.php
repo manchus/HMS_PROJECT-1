@@ -35,7 +35,9 @@ foreach($doctor as $d):
       <td><?= $d->telephone(); ?></td>
       <td>
         <a href="http://localhost/HMS_PROJECT/index.php?url=detail_medecin&id=<?=$d->id();?>" id="link" style="text-decoration:none;"><i class="fas fa-info-circle"></i>  </a>
+        <?php if (!isset($_COOKIE["nurseemail"])) { ?>
         <a href="http://localhost/HMS_PROJECT/index.php?url=delete_medecin&id=<?=$d->id();?>" id="link" style="text-decoration:none;"  id="link" style="text-decoration:none;"><i class="fas fa-trash-alt"></i></a>
+        <?php } ?>
         <a href="http://localhost/HMS_PROJECT/index.php?url=modif_medecin&id=<?=$d->id();?>" id="link" style="text-decoration:none;"><i class="fas fa-pen-square"></i></a></td>
     </tr>
   </tbody>

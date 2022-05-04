@@ -37,8 +37,10 @@ include("Public/sidebar.php");
           <td><?= $d->specialite() ?></td>
           <td><?= $d->code_postal() ?></td>
           <td>
+          <?php if (!isset($_COOKIE["doctoremail"])) { ?>
             <a href="http://localhost/HMS_PROJECT/index.php?url=delete_dep&id=<?= $d->id(); ?>" id="link" style="text-decoration:none;" id="link" style="text-decoration:none;"><i class="fas fa-trash-alt"></i></a>
             <a href="http://localhost/HMS_PROJECT/index.php?url=modif_dep&id=<?= $d->id(); ?>" id="link" style="text-decoration:none;"><i class="fas fa-pen-square"></i></a>
+            <?php } ?>
           </td>
         </tr>
       </tbody>
